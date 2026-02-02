@@ -1,4 +1,5 @@
 import './App.css'
+import { Analytics } from '@vercel/analytics/react'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           ✨ More features coming soon!
         </p>
       </div>
+      <Analytics />
     </>
   )
 }
