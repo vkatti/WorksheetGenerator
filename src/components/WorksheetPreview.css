@@ -1,0 +1,213 @@
+/* Worksheet Preview Styles */
+.worksheet-preview {
+    background: #525659;
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.worksheet-preview.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #ccc;
+    font-size: 18px;
+}
+
+/* Pages Container - Book Style Layout */
+#worksheet-content {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+/* Worksheet Page Layout (A4-sized) */
+.worksheet-page {
+    width: 210mm;
+    height: 297mm;
+    padding: 20mm;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Header */
+.worksheet-header {
+    margin-bottom: 30px;
+    border-bottom: 3px solid #333;
+    padding-bottom: 15px;
+}
+
+.worksheet-header.continuation-header {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+}
+
+.worksheet-header.continuation-header .worksheet-meta {
+    margin-bottom: 0;
+}
+
+.worksheet-header h1 {
+    margin: 0 0 10px 0;
+    font-size: 32px;
+    color: #333;
+    font-weight: bold;
+}
+
+.worksheet-meta {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #666;
+}
+
+.student-info label {
+    font-size: 18px;
+    color: #333;
+    font-weight: 500;
+}
+
+/* Problems Grid */
+.problems-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.problem-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.problem-number {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    min-width: 30px;
+}
+
+.problem-content {
+    flex: 1;
+}
+
+.math-problem {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.word-problem {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    max-width: 600px;
+}
+
+/* Answer Page */
+.answer-page {
+    background: #fafafa;
+}
+
+.answer-header {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #666;
+    padding-bottom: 10px;
+}
+
+.answer-header h2 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.answer-meta {
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+    color: #666;
+}
+
+.answers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px 20px;
+}
+
+.answer-item {
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+    color: #333;
+}
+
+.answer-number {
+    font-weight: bold;
+}
+
+.answer-value {
+    font-weight: 500;
+}
+
+/* Print Styles */
+@media print {
+    .worksheet-preview {
+        background: white;
+        padding: 0;
+    }
+
+    .worksheet-page {
+        width: 100%;
+        min-height: auto;
+        margin: 0;
+        padding: 15mm;
+        box-shadow: none;
+        page-break-after: always;
+    }
+
+    .answer-page {
+        background: white;
+    }
+
+    /* Prevent page breaks inside problems */
+    .problem-item {
+        page-break-inside: avoid;
+    }
+}
+
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+    .worksheet-page {
+        width: 100%;
+        min-height: auto;
+        padding: 15mm;
+    }
+
+    .math-problem {
+        font-size: 20px;
+    }
+
+    .word-problem {
+        font-size: 16px;
+    }
+
+    .answers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
