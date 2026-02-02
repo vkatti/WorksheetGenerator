@@ -1,38 +1,154 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* App Container */
+.app-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+.app-header {
   text-align: center;
+  color: white;
+  margin-bottom: 30px;
+  width: 100%;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  margin-bottom: 0.5rem;
+.app-header h1 {
+  font-size: 2.5em;
+  margin: 0 0 10px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.subtitle {
+.app-header p {
   font-size: 1.2em;
-  color: #888;
-  margin-bottom: 2rem;
+  margin: 0;
+  opacity: 0.9;
 }
 
-.card {
-  padding: 2em;
-  background-color: rgba(255, 255, 255, 0.05);
+/* Main Content Layout */
+.app-content {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  max-width: fit-content;
+  margin: 0 auto;
+}
+
+.config-panel {
+  flex-shrink: 0;
+  position: sticky;
+  top: 20px;
+  width: 400px;
+}
+
+.preview-panel {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.action-btn {
+  padding: 12px 24px;
+  border: none;
   border-radius: 8px;
-  max-width: 600px;
-  margin: 2rem auto;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.card p {
-  margin: 1rem 0;
-  line-height: 1.6;
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.coming-soon {
-  font-style: italic;
-  color: #646cff;
-  margin-top: 2rem;
-  font-size: 1.1em;
+.action-btn:active {
+  transform: translateY(0);
+}
+
+.action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.print-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.print-btn:hover {
+  background: #45a049;
+}
+
+.pdf-btn {
+  background: #2196f3;
+  color: white;
+}
+
+.pdf-btn:hover {
+  background: #0b7dda;
+}
+
+align-items: center;
+}
+
+.config-panel {
+  position: static;
+  width: 100%;
+
+  max-width: 400px .config-panel {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 2em;
+  }
+
+  .app-header p {
+    font-size: 1em;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .app-container {
+    background: white;
+    padding: 0;
+  }
+
+  .app-header,
+  .config-panel,
+  .action-buttons {
+    display: none !important;
+  }
+
+  .preview-panel {
+    width: 100%;
+  }
 }
