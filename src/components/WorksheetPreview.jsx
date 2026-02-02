@@ -23,7 +23,7 @@ export default function WorksheetPreview({ problems, config }) {
         const hasWordProblems = problems.some(p => p.type === 'word-problem');
         const wordProblemCount = problems.filter(p => p.type === 'word-problem').length;
         const mathProblemCount = problems.length - wordProblemCount;
-        
+
         // Rough estimates: word problems ~50mm each, math problems ~35mm each
         // Available space after header: ~220mm
         // Conservative estimate: 10 problems per page for mixed, 12 for math-only
@@ -37,7 +37,7 @@ export default function WorksheetPreview({ problems, config }) {
     const problemsPerPage = estimateProblemsPerPage();
     const pageCount = Math.ceil(problems.length / problemsPerPage);
     const pages = [];
-    
+
     for (let i = 0; i < pageCount; i++) {
         const startIdx = i * problemsPerPage;
         const endIdx = Math.min(startIdx + problemsPerPage, problems.length);
