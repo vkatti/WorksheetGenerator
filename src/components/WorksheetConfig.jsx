@@ -17,10 +17,10 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
         if (types.length === 0) return;
 
         handleChange('problemTypes', types);
-        
+
         // Set active tab to first selected operation if current tab is not selected
         if (!types.includes(activeTab)) {
-            const availableTabs = types.filter(t => 
+            const availableTabs = types.filter(t =>
                 ['addition', 'subtraction', 'multiplication', 'division'].includes(t)
             );
             if (availableTabs.length > 0) {
@@ -52,10 +52,10 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
                 <label>Problem Types</label>
                 <div className="checkbox-group">
                     {[
-                        { value: 'addition', label: 'Addition' },
-                        { value: 'subtraction', label: 'Subtraction' },
-                        { value: 'multiplication', label: 'Multiplication' },
-                        { value: 'division', label: 'Division' }
+                        { value: 'addition', label: 'Add' },
+                        { value: 'subtraction', label: 'Subtract' },
+                        { value: 'multiplication', label: 'Multiply' },
+                        { value: 'division', label: 'Divide' }
                     ].map(type => (
                         <label key={type.value} className="checkbox-label">
                             <input
@@ -73,7 +73,7 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
             {config.problemTypes.length > 0 && (
                 <div className="config-section">
                     <h3>⚙️ Settings</h3>
-                    
+
                     {/* Tab Navigation */}
                     <div className="tab-navigation">
                         {config.problemTypes.includes('addition') && (
@@ -81,7 +81,7 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
                                 className={`tab-button ${activeTab === 'addition' ? 'active' : ''}`}
                                 onClick={() => setActiveTab('addition')}
                             >
-                                Addition
+                                Add
                             </button>
                         )}
                         {config.problemTypes.includes('subtraction') && (
@@ -89,7 +89,7 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
                                 className={`tab-button ${activeTab === 'subtraction' ? 'active' : ''}`}
                                 onClick={() => setActiveTab('subtraction')}
                             >
-                                Subtraction
+                                Subtract
                             </button>
                         )}
                         {config.problemTypes.includes('multiplication') && (
@@ -97,7 +97,7 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
                                 className={`tab-button ${activeTab === 'multiplication' ? 'active' : ''}`}
                                 onClick={() => setActiveTab('multiplication')}
                             >
-                                Multiplication
+                                Multiply
                             </button>
                         )}
                         {config.problemTypes.includes('division') && (
@@ -105,7 +105,7 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
                                 className={`tab-button ${activeTab === 'division' ? 'active' : ''}`}
                                 onClick={() => setActiveTab('division')}
                             >
-                                Division
+                                Divide
                             </button>
                         )}
                     </div>
