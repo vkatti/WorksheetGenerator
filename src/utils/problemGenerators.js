@@ -1,4 +1,4 @@
-                      // Problem Generators for SmartWorksheet
+// Problem Generators for SmartWorksheet
 
 // Helper: Generate random number with specific digit count
 function randomWithDigits(digitCount) {
@@ -135,8 +135,8 @@ const wordTemplates = [
 
 // Word Logic Problem Generator
 export function generateWordProblem(config) {
-    const { problemType = 'addition', addendDigits = 2, subtrahendDigits = 2, 
-            multiplicandDigits = 2, multiplierDigits = 1, divisorDigits = 1 } = config;
+    const { problemType = 'addition', addendDigits = 2, subtrahendDigits = 2,
+        multiplicandDigits = 2, multiplierDigits = 1, divisorDigits = 1 } = config;
 
     // Filter templates by problem type
     const templates = wordTemplates.filter(t => t.type === problemType);
@@ -144,11 +144,11 @@ export function generateWordProblem(config) {
 
     // Generate numbers based on digit configuration (same as regular problems)
     let a, b;
-    
+
     if (problemType === 'addition' || problemType === 'subtraction') {
         a = randomWithDigits(addendDigits);
         b = randomWithDigits(addendDigits);
-        
+
         // For subtraction, ensure a >= b
         if (problemType === 'subtraction' && a < b) [a, b] = [b, a];
     } else if (problemType === 'multiplication') {
@@ -175,7 +175,7 @@ export function generateWordProblem(config) {
 export function generateProblems(config) {
     const { problemTypes, questionCount, includeWordProblems, wordProblemCount } = config;
     const problems = [];
-    
+
     // Generate regular math problems
     for (let i = 0; i < questionCount; i++) {
         const type = problemTypes[Math.floor(Math.random() * problemTypes.length)];
