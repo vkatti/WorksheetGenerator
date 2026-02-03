@@ -1,4 +1,4 @@
-                      // Problem Generators for SmartWorksheet
+// Problem Generators for SmartWorksheet
 
 // Helper: Generate random number with specific digit count
 function randomWithDigits(digitCount) {
@@ -135,31 +135,28 @@ const wordTemplates = [
 
 // Word Logic Problem Generator
 export function generateWordProblem(config) {
-    const { logicComplexity = 'medium', problemType = 'addition' } = config;
+    const { problemType = 'addition', addendDigits = 2, subtrahendDigits = 2,
+        multiplicandDigits = 2, multiplierDigits = 1, divisorDigits = 1 } = config;
 
     // Filter templates by problem type
     const templates = wordTemplates.filter(t => t.type === problemType);
     const template = templates[Math.floor(Math.random() * templates.length)];
 
-    // Generate numbers based on complexity
+    // Generate numbers based on digit configuration (same as regular problems)
     let a, b;
-    if (logicComplexity === 'easy') {
-        a = Math.floor(Math.random() * 20) + 1;
-        b = Math.floor(Math.random() * 20) + 1;
-    } else if (logicComplexity === 'medium') {
-        a = Math.floor(Math.random() * 50) + 1;
-        b = Math.floor(Math.random() * 50) + 1;
-    } else { // hard
-        a = Math.floor(Math.random() * 100) + 1;
-        b = Math.floor(Math.random() * 100) + 1;
-    }
 
-    // For subtraction, ensure a >= b
-    if (problemType === 'subtraction' && a < b) [a, b] = [b, a];
+    if (problemType === 'addition' || problemType === 'subtraction') {
+        a = randomWithDigits(addendDigits);
+        b = randomWithDigits(addendDigits);
 
-    // For division, ensure clean division
-    if (problemType === 'division') {
-        b = Math.floor(Math.random() * 10) + 2;
+        // For subtraction, ensure a >= b
+        if (problemType === 'subtraction' && a < b) [a, b] = [b, a];
+    } else if (problemType === 'multiplication') {
+        a = randomWithDigits(multiplicandDigits);
+        b = randomWithDigits(multiplierDigits);
+    } else if (problemType === 'division') {
+        // For division, ensure clean division
+        b = randomWithDigits(divisorDigits);
         const quotient = Math.floor(Math.random() * 20) + 1;
         a = b * quotient;
     }
@@ -176,40 +173,41 @@ export function generateWordProblem(config) {
 
 // Main Generator Function
 export function generateProblems(config) {
-    const { problemTypes, questionCount, gradeLevel } = config;
+    const { problemTypes, questionCount, includeWordProblems, wordProblemCount } = config;
     const problems = [];
 
+    // Generate regular math problems
     for (let i = 0; i < questionCount; i++) {
-        // Pick a random problem type from selected types
         const type = problemTypes[Math.floor(Math.random() * problemTypes.length)];
-
-        let problem;
-        switch (type) {
-            case 'addition':
-                problem = generateAddition(config);
-                break;
-            case 'subtraction':
-                problem = generateSubtraction(config);
-                break;
-            case 'multiplication':
-                problem = generateMultiplication(config);
-                break;
-            case 'division':
-                problem = generateDivision(config);
-                break;
-            case 'word-logic':
-                // For word problems, pick a random operation type
-                const wordType = ['addition', 'subtraction', 'multiplication', 'division'][
-                    Math.floor(Math.random() * 4)
-                ];
-                problem = generateWordProblem({ ...config, problemType: wordType });
-                break;
-            default:
-                problem = generateAddition(config);
-        }
-
+        const problem = generateProblemByType(type, config);
         problems.push({ ...problem, number: i + 1 });
     }
 
+    // Generate word problems if enabled (in a separate section)
+    if (includeWordProblems && wordProblemCount > 0) {
+        for (let i = 0; i < wordProblemCount; i++) {
+            // Randomly select from user's chosen operation types
+            const wordType = problemTypes[Math.floor(Math.random() * problemTypes.length)];
+            const problem = generateWordProblem({ ...config, problemType: wordType });
+            problems.push({ ...problem, number: questionCount + i + 1, isWordProblem: true });
+        }
+    }
+
     return problems;
+}
+
+// Helper function to generate a problem by type
+function generateProblemByType(type, config) {
+    switch (type) {
+        case 'addition':
+            return generateAddition(config);
+        case 'subtraction':
+            return generateSubtraction(config);
+        case 'multiplication':
+            return generateMultiplication(config);
+        case 'division':
+            return generateDivision(config);
+        default:
+            return generateAddition(config);
+    }
 }

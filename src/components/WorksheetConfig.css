@@ -32,7 +32,8 @@
 }
 
 .config-section select,
-.config-section input[type="number"] {
+.config-section input[type="number"],
+.config-section input[type="text"] {
     width: 100%;
     padding: 10px;
     border: 2px solid #e0e0e0;
@@ -44,7 +45,8 @@
 }
 
 .config-section select:focus,
-.config-section input[type="number"]:focus {
+.config-section input[type="number"]:focus,
+.config-section input[type="text"]:focus {
     outline: none;
     border-color: #646cff;
 }
@@ -143,6 +145,7 @@
 
     .config-section select,
     .config-section input[type="number"],
+    .config-section input[type="text"],
     .input-group input[type="number"] {
         background: #1a1a1a;
         border-color: #404040;
@@ -151,7 +154,73 @@
 
     .config-section select:focus,
     .config-section input[type="number"]:focus,
+    .config-section input[type="text"]:focus,
     .input-group input[type="number"]:focus {
         border-color: #646cff;
+    }
+}
+
+/* Tab Navigation */
+.tab-navigation {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.tab-button {
+    flex: 1;
+    min-width: 80px;
+    padding: 8px 12px;
+    background: #f5f5f5;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab-button:hover {
+    background: #e8e8e8;
+    border-color: #d0d0d0;
+}
+
+.tab-button.active {
+    background: #646cff;
+    border-color: #646cff;
+    color: white;
+}
+
+.tab-content {
+    padding: 12px;
+    background: #f9f9f9;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Dark mode support for tabs */
+@media (prefers-color-scheme: dark) {
+    .tab-button {
+        background: #2a2a2a;
+        border-color: #404040;
+        color: #c0c0c0;
+    }
+
+    .tab-button:hover {
+        background: #333333;
+        border-color: #505050;
+    }
+
+    .tab-button.active {
+        background: #646cff;
+        border-color: #646cff;
+        color: white;
+    }
+
+    .tab-content {
+        background: #2a2a2a;
+        border-color: #404040;
     }
 }

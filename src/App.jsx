@@ -8,15 +8,16 @@ import { exportToPDF, printWorksheet } from './utils/pdfExporter';
 
 function App() {
   const [config, setConfig] = useState({
-    gradeLevel: 3,
     problemTypes: ['addition', 'subtraction'],
     addendDigits: 2,
     subtrahendDigits: 2,
     multiplicandDigits: 2,
     multiplierDigits: 1,
     divisorDigits: 1,
-    logicComplexity: 'medium',
     questionCount: 15,
+    includeWordProblems: false,
+    wordProblemCount: 5,
+    worksheetTitle: 'Worksheet',
     includeAnswerKey: true
   });
 

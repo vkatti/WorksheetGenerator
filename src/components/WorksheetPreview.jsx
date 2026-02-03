@@ -17,31 +17,49 @@ export default function WorksheetPreview({ problems, config }) {
         day: 'numeric'
     });
 
-    // Estimate problems per page based on problem types
-    // Word problems take more space than math problems
-    const estimateProblemsPerPage = () => {
-        const hasWordProblems = problems.some(p => p.type === 'word-problem');
-        const wordProblemCount = problems.filter(p => p.type === 'word-problem').length;
-        const mathProblemCount = problems.length - wordProblemCount;
+    // Separate regular problems and word problems
+    const regularProblems = problems.filter(p => !p.isWordProblem);
+    const wordProblems = problems.filter(p => p.isWordProblem);
 
-        // Rough estimates: word problems ~50mm each, math problems ~35mm each
-        // Available space after header: ~220mm
-        // Conservative estimate: 10 problems per page for mixed, 12 for math-only
-        if (hasWordProblems) {
-            return Math.min(10, problems.length);
-        }
-        return Math.min(12, problems.length);
-    };
-
-    // Split problems into pages
-    const problemsPerPage = estimateProblemsPerPage();
-    const pageCount = Math.ceil(problems.length / problemsPerPage);
+    // Smart pagination: fit as many problems as possible per page
+    // Math problems in 2 columns can fit ~40 per page, word problems ~10 per page
     const pages = [];
 
-    for (let i = 0; i < pageCount; i++) {
-        const startIdx = i * problemsPerPage;
-        const endIdx = Math.min(startIdx + problemsPerPage, problems.length);
-        pages.push(problems.slice(startIdx, endIdx));
+    if (regularProblems.length > 0 && wordProblems.length > 0) {
+        // If we have both types, try to fit all regular problems on page 1
+        // and word problems starting on page 1 if there's space, or page 2
+        const mathProblemsPerPage = 30; // 2 columns, with increased padding
+        const wordProblemsPerPage = 10; // Single column, needs more space
+
+        if (regularProblems.length <= mathProblemsPerPage) {
+            // All math problems fit on page 1
+            pages.push([...regularProblems, ...wordProblems.slice(0, Math.max(0, wordProblemsPerPage - Math.ceil(regularProblems.length / 2)))]);
+            // Remaining word problems on next pages
+            for (let i = Math.max(0, wordProblemsPerPage - Math.ceil(regularProblems.length / 2)); i < wordProblems.length; i += wordProblemsPerPage) {
+                pages.push(wordProblems.slice(i, i + wordProblemsPerPage));
+            }
+        } else {
+            // Paginate math problems first
+            for (let i = 0; i < regularProblems.length; i += mathProblemsPerPage) {
+                pages.push(regularProblems.slice(i, i + mathProblemsPerPage));
+            }
+            // Then paginate word problems
+            for (let i = 0; i < wordProblems.length; i += wordProblemsPerPage) {
+                pages.push(wordProblems.slice(i, i + wordProblemsPerPage));
+            }
+        }
+    } else if (regularProblems.length > 0) {
+        // Only math problems - fit 30 per page in 2 columns
+        const mathProblemsPerPage = 30;
+        for (let i = 0; i < regularProblems.length; i += mathProblemsPerPage) {
+            pages.push(regularProblems.slice(i, i + mathProblemsPerPage));
+        }
+    } else {
+        // Only word problems - fit 10 per page
+        const wordProblemsPerPage = 10;
+        for (let i = 0; i < wordProblems.length; i += wordProblemsPerPage) {
+            pages.push(wordProblems.slice(i, i + wordProblemsPerPage));
+        }
     }
 
     return (
@@ -50,43 +68,60 @@ export default function WorksheetPreview({ problems, config }) {
             {pages.map((pageProblems, pageIndex) => (
                 <div key={`page-${pageIndex}`} className="worksheet-page questions-page">
                     {pageIndex === 0 ? (
-                        // First page: Full header with title, grade, date, and student name
+                        // First page: Full header with title, name, and date
                         <div className="worksheet-header">
-                            <h1>Math Worksheet</h1>
-                            <div className="worksheet-meta">
-                                <span>Grade {config.gradeLevel}</span>
-                                <span>•</span>
-                                <span>{date}</span>
-                            </div>
-                            <div className="student-info">
-                                <label>Name: _______________________________</label>
+                            <h1>{config.worksheetTitle || 'Worksheet'}</h1>
+                            <div className="worksheet-meta-line">
+                                <span className="name-field">Name: _______________________________</span>
+                                <span className="date-field">{date}</span>
                             </div>
                         </div>
                     ) : (
                         // Subsequent pages: Only page number and date
                         <div className="worksheet-header continuation-header">
                             <div className="worksheet-meta">
-                                <span>Page {pageIndex + 1} of {pageCount}</span>
+                                <span>Page {pageIndex + 1} of {pages.length}</span>
                                 <span>•</span>
                                 <span>{date}</span>
                             </div>
                         </div>
                     )}
 
-                    <div className="problems-grid">
-                        {pageProblems.map((problem, index) => (
-                            <div key={index} className="problem-item">
-                                <span className="problem-number">{problem.number}.</span>
-                                <div className="problem-content">
-                                    {problem.type === 'word-problem' ? (
-                                        <p className="word-problem">{problem.question}</p>
-                                    ) : (
-                                        <p className="math-problem">{problem.question}</p>
-                                    )}
-                                </div>
+                    {/* Regular Problems Section */}
+                    {pageProblems.some(p => !p.isWordProblem) && (
+                        <>
+                            {pageIndex === 0 && wordProblems.length > 0 && (
+                                <h3 className="section-title">Section A: Math Problems</h3>
+                            )}
+                            <div className="problems-grid math-problems-grid">
+                                {pageProblems.filter(p => !p.isWordProblem).map((problem, index) => (
+                                    <div key={index} className="problem-item">
+                                        <span className="problem-number">{problem.number}.</span>
+                                        <div className="problem-content">
+                                            <p className="math-problem">{problem.question}</p>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
+                        </>
+                    )}
+
+                    {/* Word Problems Section */}
+                    {pageProblems.some(p => p.isWordProblem) && (
+                        <>
+                            <h3 className="section-title">Section B: Word Problems</h3>
+                            <div className="problems-grid word-problems-grid">
+                                {pageProblems.filter(p => p.isWordProblem).map((problem, index) => (
+                                    <div key={index} className="problem-item">
+                                        <span className="problem-number">{problem.number}.</span>
+                                        <div className="problem-content">
+                                            <p className="word-problem">{problem.question}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    )}
                 </div>
             ))}
 
@@ -96,20 +131,41 @@ export default function WorksheetPreview({ problems, config }) {
                     <div className="answer-header">
                         <h2>Answer Key</h2>
                         <div className="answer-meta">
-                            <span>Grade {config.gradeLevel}</span>
-                            <span>•</span>
                             <span>{problems.length} Questions</span>
                         </div>
                     </div>
 
-                    <div className="answers-grid">
-                        {problems.map((problem, index) => (
-                            <div key={index} className="answer-item">
-                                <span className="answer-number">{problem.number}.</span>
-                                <span className="answer-value">{problem.answer}</span>
+                    {/* Math Problems Answers */}
+                    {regularProblems.length > 0 && (
+                        <>
+                            {wordProblems.length > 0 && (
+                                <h3 className="section-title">Section A: Math Problems</h3>
+                            )}
+                            <div className="answers-grid">
+                                {regularProblems.map((problem, index) => (
+                                    <div key={index} className="answer-item">
+                                        <span className="answer-number">{problem.number}.</span>
+                                        <span className="answer-value">{problem.answer}</span>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
+                        </>
+                    )}
+
+                    {/* Word Problems Answers */}
+                    {wordProblems.length > 0 && (
+                        <>
+                            <h3 className="section-title">Section B: Word Problems</h3>
+                            <div className="answers-grid">
+                                {wordProblems.map((problem, index) => (
+                                    <div key={index} className="answer-item">
+                                        <span className="answer-number">{problem.number}.</span>
+                                        <span className="answer-value">{problem.answer}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    )}
                 </div>
             )}
         </div>
