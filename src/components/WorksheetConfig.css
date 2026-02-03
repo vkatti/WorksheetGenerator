@@ -32,7 +32,8 @@
 }
 
 .config-section select,
-.config-section input[type="number"] {
+.config-section input[type="number"],
+.config-section input[type="text"] {
     width: 100%;
     padding: 10px;
     border: 2px solid #e0e0e0;
@@ -44,7 +45,8 @@
 }
 
 .config-section select:focus,
-.config-section input[type="number"]:focus {
+.config-section input[type="number"]:focus,
+.config-section input[type="text"]:focus {
     outline: none;
     border-color: #646cff;
 }
@@ -143,6 +145,7 @@
 
     .config-section select,
     .config-section input[type="number"],
+    .config-section input[type="text"],
     .input-group input[type="number"] {
         background: #1a1a1a;
         border-color: #404040;
@@ -151,6 +154,7 @@
 
     .config-section select:focus,
     .config-section input[type="number"]:focus,
+    .config-section input[type="text"]:focus,
     .input-group input[type="number"]:focus {
         border-color: #646cff;
     }

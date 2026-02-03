@@ -56,10 +56,8 @@ export default function WorksheetPreview({ problems, config }) {
                     {pageIndex === 0 ? (
                         // First page: Full header with title, grade, date, and student name
                         <div className="worksheet-header">
-                            <h1>Math Worksheet</h1>
+                            <h1>{config.worksheetTitle || 'Worksheet'}</h1>
                             <div className="worksheet-meta">
-                                <span>Grade {config.gradeLevel}</span>
-                                <span>•</span>
                                 <span>{date}</span>
                             </div>
                             <div className="student-info">
@@ -121,8 +119,6 @@ export default function WorksheetPreview({ problems, config }) {
                     <div className="answer-header">
                         <h2>Answer Key</h2>
                         <div className="answer-meta">
-                            <span>Grade {config.gradeLevel}</span>
-                            <span>•</span>
                             <span>{problems.length} Questions</span>
                         </div>
                     </div>

@@ -33,20 +33,6 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
         <div className="worksheet-config">
             <h2>📝 Worksheet Configuration</h2>
 
-            {/* Grade Level */}
-            <div className="config-section">
-                <label htmlFor="gradeLevel">Grade Level</label>
-                <select
-                    id="gradeLevel"
-                    value={config.gradeLevel}
-                    onChange={(e) => handleChange('gradeLevel', parseInt(e.target.value))}
-                >
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map(grade => (
-                        <option key={grade} value={grade}>Grade {grade}</option>
-                    ))}
-                </select>
-            </div>
-
             {/* Problem Types */}
             <div className="config-section">
                 <label>Problem Types</label>
@@ -233,6 +219,18 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
                     />
                     <span>Include Answer Key in PDF</span>
                 </label>
+            </div>
+
+            {/* Worksheet Title */}
+            <div className="config-section">
+                <label htmlFor="worksheetTitle">Worksheet Title</label>
+                <input
+                    id="worksheetTitle"
+                    type="text"
+                    value={config.worksheetTitle}
+                    onChange={(e) => handleChange('worksheetTitle', e.target.value)}
+                    placeholder="Worksheet"
+                />
             </div>
 
             {/* Generate Button */}
