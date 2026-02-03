@@ -34,12 +34,15 @@
 .worksheet-page {
     width: 210mm;
     height: 297mm;
-    padding: 15mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    padding: 15mm 15mm 10mm 15mm;
     background: white;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
     position: relative;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Header */
@@ -53,6 +56,12 @@
     margin-bottom: 15px;
     border-bottom: 2px solid #333;
     padding-bottom: 8px;
+}
+
+.worksheet-content {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
 }
 
 .worksheet-header.continuation-header .worksheet-meta {
@@ -256,4 +265,20 @@
     .answers-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+}
+
+/* Footer */
+.worksheet-footer {
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.worksheet-footer p {
+    margin: 0;
+    font-size: 10px;
+    color: #666;
+    font-style: italic;
 }

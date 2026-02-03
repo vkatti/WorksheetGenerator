@@ -17,6 +17,7 @@ function App() {
     questionCount: 15,
     includeWordProblems: false,
     wordProblemCount: 5,
+    currency: '₹',
     worksheetTitle: 'Worksheet',
     includeAnswerKey: true
   });

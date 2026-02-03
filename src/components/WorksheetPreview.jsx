@@ -31,14 +31,15 @@ export default function WorksheetPreview({ problems, config }) {
         const mathProblemsPerPage = 30; // 2 columns, with increased padding
         const wordProblemsPerPage = 10; // Single column, needs more space
 
-        if (regularProblems.length <= mathProblemsPerPage) {
-            // All math problems fit on page 1
+        if (regularProblems.length <= 14) {
+            // All math problems fit on page 1 with word problems
             pages.push([...regularProblems, ...wordProblems.slice(0, Math.max(0, wordProblemsPerPage - Math.ceil(regularProblems.length / 2)))]);
             // Remaining word problems on next pages
             for (let i = Math.max(0, wordProblemsPerPage - Math.ceil(regularProblems.length / 2)); i < wordProblems.length; i += wordProblemsPerPage) {
                 pages.push(wordProblems.slice(i, i + wordProblemsPerPage));
             }
         } else {
+            // More than 14 math problems - word problems must start on next page
             // Paginate math problems first
             for (let i = 0; i < regularProblems.length; i += mathProblemsPerPage) {
                 pages.push(regularProblems.slice(i, i + mathProblemsPerPage));
@@ -87,41 +88,47 @@ export default function WorksheetPreview({ problems, config }) {
                         </div>
                     )}
 
-                    {/* Regular Problems Section */}
-                    {pageProblems.some(p => !p.isWordProblem) && (
-                        <>
-                            {pageIndex === 0 && wordProblems.length > 0 && (
-                                <h3 className="section-title">Section A: Math Problems</h3>
-                            )}
-                            <div className="problems-grid math-problems-grid">
-                                {pageProblems.filter(p => !p.isWordProblem).map((problem, index) => (
-                                    <div key={index} className="problem-item">
-                                        <span className="problem-number">{problem.number}.</span>
-                                        <div className="problem-content">
-                                            <p className="math-problem">{problem.question}</p>
+                    <div className="worksheet-content">
+                        {/* Regular Problems Section */}
+                        {pageProblems.some(p => !p.isWordProblem) && (
+                            <>
+                                {pageIndex === 0 && wordProblems.length > 0 && (
+                                    <h3 className="section-title">Section A: Math Problems</h3>
+                                )}
+                                <div className="problems-grid math-problems-grid">
+                                    {pageProblems.filter(p => !p.isWordProblem).map((problem, index) => (
+                                        <div key={index} className="problem-item">
+                                            <span className="problem-number">{problem.number}.</span>
+                                            <div className="problem-content">
+                                                <p className="math-problem">{problem.question}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </>
-                    )}
+                                    ))}
+                                </div>
+                            </>
+                        )}
 
-                    {/* Word Problems Section */}
-                    {pageProblems.some(p => p.isWordProblem) && (
-                        <>
-                            <h3 className="section-title">Section B: Word Problems</h3>
-                            <div className="problems-grid word-problems-grid">
-                                {pageProblems.filter(p => p.isWordProblem).map((problem, index) => (
-                                    <div key={index} className="problem-item">
-                                        <span className="problem-number">{problem.number}.</span>
-                                        <div className="problem-content">
-                                            <p className="word-problem">{problem.question}</p>
+                        {/* Word Problems Section */}
+                        {pageProblems.some(p => p.isWordProblem) && (
+                            <>
+                                <h3 className="section-title">Section B: Word Problems</h3>
+                                <div className="problems-grid word-problems-grid">
+                                    {pageProblems.filter(p => p.isWordProblem).map((problem, index) => (
+                                        <div key={index} className="problem-item">
+                                            <span className="problem-number">{problem.number}.</span>
+                                            <div className="problem-content">
+                                                <p className="word-problem">{problem.question}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </>
-                    )}
+                                    ))}
+                                </div>
+                            </>
+                        )}
+                    </div>
+
+                    <div className="worksheet-footer">
+                        <p>generated by SmartWorksheetGenerator.com</p>
+                    </div>
                 </div>
             ))}
 
@@ -166,6 +173,10 @@ export default function WorksheetPreview({ problems, config }) {
                             </div>
                         </>
                     )}
+
+                    <div className="worksheet-footer">
+                        <p>generated by SmartWorksheetGenerator.com</p>
+                    </div>
                 </div>
             )}
         </div>
