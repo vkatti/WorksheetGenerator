@@ -24,13 +24,13 @@ export default function WorksheetPreview({ problems, config }) {
     // Smart pagination: fit as many problems as possible per page
     // Math problems in 2 columns can fit ~40 per page, word problems ~10 per page
     const pages = [];
-    
+
     if (regularProblems.length > 0 && wordProblems.length > 0) {
         // If we have both types, try to fit all regular problems on page 1
         // and word problems starting on page 1 if there's space, or page 2
         const mathProblemsPerPage = 40; // 2 columns, compact layout
         const wordProblemsPerPage = 10; // Single column, needs more space
-        
+
         if (regularProblems.length <= mathProblemsPerPage) {
             // All math problems fit on page 1
             pages.push([...regularProblems, ...wordProblems.slice(0, Math.max(0, wordProblemsPerPage - Math.ceil(regularProblems.length / 2)))]);

@@ -120,6 +120,7 @@
 .math-problems-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-auto-flow: column;
     gap: 12px 25px;
     column-gap: 25px;
 }
