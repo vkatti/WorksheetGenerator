@@ -54,14 +54,12 @@ export default function WorksheetPreview({ problems, config }) {
             {pages.map((pageProblems, pageIndex) => (
                 <div key={`page-${pageIndex}`} className="worksheet-page questions-page">
                     {pageIndex === 0 ? (
-                        // First page: Full header with title, grade, date, and student name
+                        // First page: Full header with title, name, and date
                         <div className="worksheet-header">
                             <h1>{config.worksheetTitle || 'Worksheet'}</h1>
-                            <div className="worksheet-meta">
-                                <span>{date}</span>
-                            </div>
-                            <div className="student-info">
-                                <label>Name: _______________________________</label>
+                            <div className="worksheet-meta-line">
+                                <span className="name-field">Name: _______________________________</span>
+                                <span className="date-field">{date}</span>
                             </div>
                         </div>
                     ) : (

@@ -74,6 +74,25 @@
     color: #666;
 }
 
+.worksheet-meta-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.name-field {
+    text-align: left;
+    color: #666;
+}
+
+.date-field {
+    text-align: right;
+    color: #666;
+}
+
 .student-info label {
     font-size: 18px;
     color: #333;
