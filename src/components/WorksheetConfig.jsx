@@ -195,17 +195,32 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
                     <span>Include Word Problems</span>
                 </label>
                 {config.includeWordProblems && (
-                    <div className="input-group" style={{ marginTop: '10px' }}>
-                        <label htmlFor="wordProblemCount">Number of Word Problems</label>
-                        <input
-                            id="wordProblemCount"
-                            type="number"
-                            min="1"
-                            max="20"
-                            value={config.wordProblemCount}
-                            onChange={(e) => handleChange('wordProblemCount', parseInt(e.target.value))}
-                        />
-                    </div>
+                    <>
+                        <div className="input-group" style={{ marginTop: '10px' }}>
+                            <label htmlFor="wordProblemCount">Number of Word Problems</label>
+                            <input
+                                id="wordProblemCount"
+                                type="number"
+                                min="1"
+                                max="20"
+                                value={config.wordProblemCount}
+                                onChange={(e) => handleChange('wordProblemCount', parseInt(e.target.value))}
+                            />
+                        </div>
+                        <div className="input-group" style={{ marginTop: '10px' }}>
+                            <label htmlFor="currency">Currency Symbol</label>
+                            <select
+                                id="currency"
+                                value={config.currency}
+                                onChange={(e) => handleChange('currency', e.target.value)}
+                            >
+                                <option value="₹">₹ (Rupee)</option>
+                                <option value="$">$ (US Dollar)</option>
+                                <option value="€">€ (Euro)</option>
+                                <option value="£">£ (Pound)</option>
+                            </select>
+                        </div>
+                    </>
                 )}
             </div>
 

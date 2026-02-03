@@ -106,7 +106,7 @@ const wordTemplates = [
     },
     {
         type: 'multiplication',
-        template: (a, b) => `A chocolate bar costs $${a}. How much do ${b} chocolate bars cost?`,
+        template: (a, b, currency = '$') => `A chocolate bar costs ${currency}${a}. How much do ${b} chocolate bars cost?`,
         operation: (a, b) => a * b
     },
     {
@@ -136,7 +136,7 @@ const wordTemplates = [
 // Word Logic Problem Generator
 export function generateWordProblem(config) {
     const { problemType = 'addition', addendDigits = 2, subtrahendDigits = 2,
-        multiplicandDigits = 2, multiplierDigits = 1, divisorDigits = 1 } = config;
+        multiplicandDigits = 2, multiplierDigits = 1, divisorDigits = 1, currency = '₹' } = config;
 
     // Filter templates by problem type
     const templates = wordTemplates.filter(t => t.type === problemType);
@@ -161,7 +161,7 @@ export function generateWordProblem(config) {
         a = b * quotient;
     }
 
-    const question = template.template(a, b);
+    const question = template.template(a, b, currency);
     const answer = template.operation(a, b);
 
     return {
