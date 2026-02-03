@@ -135,14 +135,37 @@ export default function WorksheetPreview({ problems, config }) {
                         </div>
                     </div>
 
-                    <div className="answers-grid">
-                        {problems.map((problem, index) => (
-                            <div key={index} className="answer-item">
-                                <span className="answer-number">{problem.number}.</span>
-                                <span className="answer-value">{problem.answer}</span>
+                    {/* Math Problems Answers */}
+                    {regularProblems.length > 0 && (
+                        <>
+                            {wordProblems.length > 0 && (
+                                <h3 className="section-title">Section A: Math Problems</h3>
+                            )}
+                            <div className="answers-grid">
+                                {regularProblems.map((problem, index) => (
+                                    <div key={index} className="answer-item">
+                                        <span className="answer-number">{problem.number}.</span>
+                                        <span className="answer-value">{problem.answer}</span>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
+                        </>
+                    )}
+
+                    {/* Word Problems Answers */}
+                    {wordProblems.length > 0 && (
+                        <>
+                            <h3 className="section-title">Section B: Word Problems</h3>
+                            <div className="answers-grid">
+                                {wordProblems.map((problem, index) => (
+                                    <div key={index} className="answer-item">
+                                        <span className="answer-number">{problem.number}.</span>
+                                        <span className="answer-value">{problem.answer}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    )}
                 </div>
             )}
         </div>
