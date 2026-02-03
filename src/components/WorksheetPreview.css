@@ -121,8 +121,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-auto-flow: column;
-    grid-template-rows: repeat(20, auto);
-    gap: 12px 25px;
+    grid-template-rows: repeat(15, auto);
+    gap: 18px 25px;
     column-gap: 25px;
 }
 

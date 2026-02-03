@@ -28,7 +28,7 @@ export default function WorksheetPreview({ problems, config }) {
     if (regularProblems.length > 0 && wordProblems.length > 0) {
         // If we have both types, try to fit all regular problems on page 1
         // and word problems starting on page 1 if there's space, or page 2
-        const mathProblemsPerPage = 40; // 2 columns, compact layout
+        const mathProblemsPerPage = 30; // 2 columns, with increased padding
         const wordProblemsPerPage = 10; // Single column, needs more space
 
         if (regularProblems.length <= mathProblemsPerPage) {
@@ -49,8 +49,8 @@ export default function WorksheetPreview({ problems, config }) {
             }
         }
     } else if (regularProblems.length > 0) {
-        // Only math problems - fit 40 per page in 2 columns
-        const mathProblemsPerPage = 40;
+        // Only math problems - fit 30 per page in 2 columns
+        const mathProblemsPerPage = 30;
         for (let i = 0; i < regularProblems.length; i += mathProblemsPerPage) {
             pages.push(regularProblems.slice(i, i + mathProblemsPerPage));
         }
