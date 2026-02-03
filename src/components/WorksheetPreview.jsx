@@ -33,6 +33,10 @@ export default function WorksheetPreview({ problems, config }) {
         return Math.min(12, problems.length);
     };
 
+    // Separate regular problems and word problems
+    const regularProblems = problems.filter(p => !p.isWordProblem);
+    const wordProblems = problems.filter(p => p.isWordProblem);
+
     // Split problems into pages
     const problemsPerPage = estimateProblemsPerPage();
     const pageCount = Math.ceil(problems.length / problemsPerPage);
@@ -73,20 +77,41 @@ export default function WorksheetPreview({ problems, config }) {
                         </div>
                     )}
 
-                    <div className="problems-grid">
-                        {pageProblems.map((problem, index) => (
-                            <div key={index} className="problem-item">
-                                <span className="problem-number">{problem.number}.</span>
-                                <div className="problem-content">
-                                    {problem.type === 'word-problem' ? (
-                                        <p className="word-problem">{problem.question}</p>
-                                    ) : (
-                                        <p className="math-problem">{problem.question}</p>
-                                    )}
-                                </div>
+                    {/* Regular Problems Section */}
+                    {pageProblems.some(p => !p.isWordProblem) && (
+                        <>
+                            {pageIndex === 0 && wordProblems.length > 0 && (
+                                <h3 className="section-title">Section A: Math Problems</h3>
+                            )}
+                            <div className="problems-grid">
+                                {pageProblems.filter(p => !p.isWordProblem).map((problem, index) => (
+                                    <div key={index} className="problem-item">
+                                        <span className="problem-number">{problem.number}.</span>
+                                        <div className="problem-content">
+                                            <p className="math-problem">{problem.question}</p>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
+                        </>
+                    )}
+
+                    {/* Word Problems Section */}
+                    {pageProblems.some(p => p.isWordProblem) && (
+                        <>
+                            <h3 className="section-title">Section B: Word Problems</h3>
+                            <div className="problems-grid">
+                                {pageProblems.filter(p => p.isWordProblem).map((problem, index) => (
+                                    <div key={index} className="problem-item">
+                                        <span className="problem-number">{problem.number}.</span>
+                                        <div className="problem-content">
+                                            <p className="word-problem">{problem.question}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    )}
                 </div>
             ))}
 

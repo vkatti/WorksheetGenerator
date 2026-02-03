@@ -80,6 +80,16 @@
     font-weight: 500;
 }
 
+/* Section Titles */
+.section-title {
+    margin: 20px 0 15px 0;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 8px;
+}
+
 /* Problems Grid */
 .problems-grid {
     display: flex;

@@ -43,8 +43,7 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
                         { value: 'addition', label: 'Addition' },
                         { value: 'subtraction', label: 'Subtraction' },
                         { value: 'multiplication', label: 'Multiplication' },
-                        { value: 'division', label: 'Division' },
-                        { value: 'word-logic', label: 'Word Logic' }
+                        { value: 'division', label: 'Division' }
                     ].map(type => (
                         <label key={type.value} className="checkbox-label">
                             <input
@@ -122,24 +121,30 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
                 </div>
             )}
 
-            {/* Word Logic Settings */}
-            {config.problemTypes.includes('word-logic') && (
-                <div className="config-section">
-                    <h3>Word Logic Settings</h3>
-                    <div className="input-group">
-                        <label htmlFor="logicComplexity">Language Complexity</label>
-                        <select
-                            id="logicComplexity"
-                            value={config.logicComplexity}
-                            onChange={(e) => handleChange('logicComplexity', e.target.value)}
-                        >
-                            <option value="easy">Easy (1-20)</option>
-                            <option value="medium">Medium (1-50)</option>
-                            <option value="hard">Hard (1-100)</option>
-                        </select>
+            {/* Word Problems Section */}
+            <div className="config-section">
+                <label className="checkbox-label">
+                    <input
+                        type="checkbox"
+                        checked={config.includeWordProblems}
+                        onChange={(e) => handleChange('includeWordProblems', e.target.checked)}
+                    />
+                    <span>Include Word Problems</span>
+                </label>
+                {config.includeWordProblems && (
+                    <div className="input-group" style={{ marginTop: '10px' }}>
+                        <label htmlFor="wordProblemCount">Number of Word Problems</label>
+                        <input
+                            id="wordProblemCount"
+                            type="number"
+                            min="1"
+                            max="20"
+                            value={config.wordProblemCount}
+                            onChange={(e) => handleChange('wordProblemCount', parseInt(e.target.value))}
+                        />
                     </div>
-                </div>
-            )}
+                )}
+            </div>
 
             {/* Number of Questions */}
             <div className="config-section">

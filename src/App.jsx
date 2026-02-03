@@ -15,8 +15,9 @@ function App() {
     multiplicandDigits: 2,
     multiplierDigits: 1,
     divisorDigits: 1,
-    logicComplexity: 'medium',
     questionCount: 15,
+    includeWordProblems: false,
+    wordProblemCount: 5,
     includeAnswerKey: true
   });
 
