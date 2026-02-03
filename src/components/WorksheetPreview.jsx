@@ -17,35 +17,49 @@ export default function WorksheetPreview({ problems, config }) {
         day: 'numeric'
     });
 
-    // Estimate problems per page based on problem types
-    // Word problems take more space than math problems
-    const estimateProblemsPerPage = () => {
-        const hasWordProblems = problems.some(p => p.type === 'word-problem');
-        const wordProblemCount = problems.filter(p => p.type === 'word-problem').length;
-        const mathProblemCount = problems.length - wordProblemCount;
-
-        // Rough estimates: word problems ~50mm each, math problems ~35mm each
-        // Available space after header: ~220mm
-        // Conservative estimate: 10 problems per page for mixed, 12 for math-only
-        if (hasWordProblems) {
-            return Math.min(10, problems.length);
-        }
-        return Math.min(12, problems.length);
-    };
-
     // Separate regular problems and word problems
     const regularProblems = problems.filter(p => !p.isWordProblem);
     const wordProblems = problems.filter(p => p.isWordProblem);
 
-    // Split problems into pages
-    const problemsPerPage = estimateProblemsPerPage();
-    const pageCount = Math.ceil(problems.length / problemsPerPage);
+    // Smart pagination: fit as many problems as possible per page
+    // Math problems in 2 columns can fit ~40 per page, word problems ~10 per page
     const pages = [];
-
-    for (let i = 0; i < pageCount; i++) {
-        const startIdx = i * problemsPerPage;
-        const endIdx = Math.min(startIdx + problemsPerPage, problems.length);
-        pages.push(problems.slice(startIdx, endIdx));
+    
+    if (regularProblems.length > 0 && wordProblems.length > 0) {
+        // If we have both types, try to fit all regular problems on page 1
+        // and word problems starting on page 1 if there's space, or page 2
+        const mathProblemsPerPage = 40; // 2 columns, compact layout
+        const wordProblemsPerPage = 10; // Single column, needs more space
+        
+        if (regularProblems.length <= mathProblemsPerPage) {
+            // All math problems fit on page 1
+            pages.push([...regularProblems, ...wordProblems.slice(0, Math.max(0, wordProblemsPerPage - Math.ceil(regularProblems.length / 2)))]);
+            // Remaining word problems on next pages
+            for (let i = Math.max(0, wordProblemsPerPage - Math.ceil(regularProblems.length / 2)); i < wordProblems.length; i += wordProblemsPerPage) {
+                pages.push(wordProblems.slice(i, i + wordProblemsPerPage));
+            }
+        } else {
+            // Paginate math problems first
+            for (let i = 0; i < regularProblems.length; i += mathProblemsPerPage) {
+                pages.push(regularProblems.slice(i, i + mathProblemsPerPage));
+            }
+            // Then paginate word problems
+            for (let i = 0; i < wordProblems.length; i += wordProblemsPerPage) {
+                pages.push(wordProblems.slice(i, i + wordProblemsPerPage));
+            }
+        }
+    } else if (regularProblems.length > 0) {
+        // Only math problems - fit 40 per page in 2 columns
+        const mathProblemsPerPage = 40;
+        for (let i = 0; i < regularProblems.length; i += mathProblemsPerPage) {
+            pages.push(regularProblems.slice(i, i + mathProblemsPerPage));
+        }
+    } else {
+        // Only word problems - fit 10 per page
+        const wordProblemsPerPage = 10;
+        for (let i = 0; i < wordProblems.length; i += wordProblemsPerPage) {
+            pages.push(wordProblems.slice(i, i + wordProblemsPerPage));
+        }
     }
 
     return (
@@ -66,7 +80,7 @@ export default function WorksheetPreview({ problems, config }) {
                         // Subsequent pages: Only page number and date
                         <div className="worksheet-header continuation-header">
                             <div className="worksheet-meta">
-                                <span>Page {pageIndex + 1} of {pageCount}</span>
+                                <span>Page {pageIndex + 1} of {pages.length}</span>
                                 <span>•</span>
                                 <span>{date}</span>
                             </div>
