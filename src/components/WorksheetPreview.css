@@ -116,6 +116,21 @@
     gap: 24px;
 }
 
+/* Math Problems - 2 Column Layout */
+.math-problems-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 30px;
+    column-gap: 30px;
+}
+
+/* Word Problems - Single Column */
+.word-problems-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
 .problem-item {
     display: flex;
     gap: 12px;

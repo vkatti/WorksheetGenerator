@@ -79,7 +79,7 @@ export default function WorksheetPreview({ problems, config }) {
                             {pageIndex === 0 && wordProblems.length > 0 && (
                                 <h3 className="section-title">Section A: Math Problems</h3>
                             )}
-                            <div className="problems-grid">
+                            <div className="problems-grid math-problems-grid">
                                 {pageProblems.filter(p => !p.isWordProblem).map((problem, index) => (
                                     <div key={index} className="problem-item">
                                         <span className="problem-number">{problem.number}.</span>
@@ -96,7 +96,7 @@ export default function WorksheetPreview({ problems, config }) {
                     {pageProblems.some(p => p.isWordProblem) && (
                         <>
                             <h3 className="section-title">Section B: Word Problems</h3>
-                            <div className="problems-grid">
+                            <div className="problems-grid word-problems-grid">
                                 {pageProblems.filter(p => p.isWordProblem).map((problem, index) => (
                                     <div key={index} className="problem-item">
                                         <span className="problem-number">{problem.number}.</span>
