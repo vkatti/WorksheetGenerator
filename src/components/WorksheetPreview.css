@@ -1,7 +1,6 @@
 /* Worksheet Preview Styles */
 .worksheet-preview {
     background: #525659;
-    min-height: 100vh;
     padding: 40px 20px;
     display: flex;
     justify-content: center;
@@ -9,9 +8,12 @@
 }
 
 .worksheet-preview.empty {
+    min-height: calc(730px + 48px - 80px);
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 12px;
 }
 
 .empty-state {

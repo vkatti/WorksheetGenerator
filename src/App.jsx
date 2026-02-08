@@ -25,6 +25,11 @@ function App() {
   const [problems, setProblems] = useState([]);
   const [isExporting, setIsExporting] = useState(false);
 
+  const handleConfigChange = (newConfig) => {
+    setConfig(newConfig);
+    setProblems([]); // Clear the worksheet when config changes
+  };
+
   const handleGenerate = () => {
     const newProblems = generateProblems(config);
     setProblems(newProblems);
@@ -66,7 +71,7 @@ function App() {
         <aside className="config-panel">
           <WorksheetConfig
             config={config}
-            onConfigChange={setConfig}
+            onConfigChange={handleConfigChange}
             onGenerate={handleGenerate}
           />
         </aside>
