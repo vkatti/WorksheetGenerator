@@ -60,8 +60,8 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                 {/* Header */}
                 <div className="modal-header">
                     <h2>⚙️ Advanced Settings</h2>
-                    <button 
-                        className="modal-close-btn" 
+                    <button
+                        className="modal-close-btn"
                         onClick={onClose}
                         aria-label="Close"
                     >
@@ -75,7 +75,7 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                     {config.problemTypes.length > 0 && (
                         <div className="modal-section">
                             <h3>📐 Digit Settings</h3>
-                            
+
                             {config.problemTypes.includes('addition') && (
                                 <div className="modal-input-group">
                                     <label htmlFor="modal-addendDigits">
@@ -161,7 +161,7 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                     {config.includeWordProblems && (
                         <div className="modal-section">
                             <h3>📖 Word Problem Settings</h3>
-                            
+
                             <div className="modal-input-group">
                                 <label htmlFor="modal-wordProblemCount">
                                     Number of Word Problems
@@ -170,10 +170,13 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                                     id="modal-wordProblemCount"
                                     type="number"
                                     min="1"
-                                    max="20"
-                                    value={tempConfig.wordProblemCount}
+                                    max={config.questionCount}
+                                    value={Math.min(tempConfig.wordProblemCount, config.questionCount)}
                                     onChange={(e) => handleTempChange('wordProblemCount', parseInt(e.target.value))}
                                 />
+                                <span className="modal-input-hint">
+                                    {Math.min(tempConfig.wordProblemCount, config.questionCount)} out of {config.questionCount} total questions
+                                </span>
                             </div>
 
                             <div className="modal-input-group">

@@ -176,20 +176,31 @@ export function generateProblems(config) {
     const { problemTypes, questionCount, includeWordProblems, wordProblemCount } = config;
     const problems = [];
 
+    // Calculate counts based on whether word problems are included
+    let mathProblemCount = questionCount;
+    let actualWordProblemCount = 0;
+
+    if (includeWordProblems && wordProblemCount > 0) {
+        // Cap word problems at total question count
+        actualWordProblemCount = Math.min(wordProblemCount, questionCount);
+        // Remaining questions are math problems
+        mathProblemCount = questionCount - actualWordProblemCount;
+    }
+
     // Generate regular math problems
-    for (let i = 0; i < questionCount; i++) {
+    for (let i = 0; i < mathProblemCount; i++) {
         const type = problemTypes[Math.floor(Math.random() * problemTypes.length)];
         const problem = generateProblemByType(type, config);
         problems.push({ ...problem, number: i + 1 });
     }
 
-    // Generate word problems if enabled (in a separate section)
-    if (includeWordProblems && wordProblemCount > 0) {
-        for (let i = 0; i < wordProblemCount; i++) {
+    // Generate word problems if enabled (included in total count)
+    if (includeWordProblems && actualWordProblemCount > 0) {
+        for (let i = 0; i < actualWordProblemCount; i++) {
             // Randomly select from user's chosen operation types
             const wordType = problemTypes[Math.floor(Math.random() * problemTypes.length)];
             const problem = generateWordProblem({ ...config, problemType: wordType });
-            problems.push({ ...problem, number: questionCount + i + 1, isWordProblem: true });
+            problems.push({ ...problem, number: mathProblemCount + i + 1, isWordProblem: true });
         }
     }
 

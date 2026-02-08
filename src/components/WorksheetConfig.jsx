@@ -102,8 +102,8 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
             </div>
 
             {/* Advanced Settings Button */}
-            <button 
-                className="advanced-settings-btn" 
+            <button
+                className="advanced-settings-btn"
                 onClick={() => setIsModalOpen(true)}
                 type="button"
             >
