@@ -22,24 +22,25 @@ export default function WorksheetPreview({ problems, config }) {
     const wordProblems = problems.filter(p => p.isWordProblem);
 
     // Smart pagination: fit as many problems as possible per page
-    // Math problems in 2 columns can fit ~40 per page, word problems ~10 per page
+    // Math problems in 2 columns can fit ~40 per page, word problems ~7 per page
     const pages = [];
 
     if (regularProblems.length > 0 && wordProblems.length > 0) {
         // If we have both types, try to fit all regular problems on page 1
         // and word problems starting on page 1 if there's space, or page 2
         const mathProblemsPerPage = 30; // 2 columns, with increased padding
-        const wordProblemsPerPage = 10; // Single column, needs more space
+        const wordProblemsPerPage = 7; // Single column, needs more space
 
-        if (regularProblems.length <= 14) {
-            // All math problems fit on page 1 with word problems
-            pages.push([...regularProblems, ...wordProblems.slice(0, Math.max(0, wordProblemsPerPage - Math.ceil(regularProblems.length / 2)))]);
+        if (regularProblems.length <= 10) {
+            // All math problems fit on page 1 with word problems (conservative estimate)
+            const wordProblemsOnFirstPage = Math.min(Math.max(0, 7 - Math.ceil(regularProblems.length / 2)), wordProblems.length);
+            pages.push([...regularProblems, ...wordProblems.slice(0, wordProblemsOnFirstPage)]);
             // Remaining word problems on next pages
-            for (let i = Math.max(0, wordProblemsPerPage - Math.ceil(regularProblems.length / 2)); i < wordProblems.length; i += wordProblemsPerPage) {
+            for (let i = wordProblemsOnFirstPage; i < wordProblems.length; i += wordProblemsPerPage) {
                 pages.push(wordProblems.slice(i, i + wordProblemsPerPage));
             }
         } else {
-            // More than 14 math problems - word problems must start on next page
+            // More than 10 math problems - word problems must start on next page
             // Paginate math problems first
             for (let i = 0; i < regularProblems.length; i += mathProblemsPerPage) {
                 pages.push(regularProblems.slice(i, i + mathProblemsPerPage));
@@ -56,8 +57,8 @@ export default function WorksheetPreview({ problems, config }) {
             pages.push(regularProblems.slice(i, i + mathProblemsPerPage));
         }
     } else {
-        // Only word problems - fit 10 per page
-        const wordProblemsPerPage = 10;
+        // Only word problems - fit 7 per page
+        const wordProblemsPerPage = 7;
         for (let i = 0; i < wordProblems.length; i += wordProblemsPerPage) {
             pages.push(wordProblems.slice(i, i + wordProblemsPerPage));
         }
