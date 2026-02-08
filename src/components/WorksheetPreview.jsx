@@ -22,18 +22,18 @@ export default function WorksheetPreview({ problems, config }) {
     const wordProblems = problems.filter(p => p.isWordProblem);
 
     // Smart pagination: fit as many problems as possible per page
-    // Math problems in 2 columns can fit ~40 per page, word problems ~7 per page
+    // Math problems in 2 columns can fit ~40 per page, word problems ~10 per page
     const pages = [];
 
     if (regularProblems.length > 0 && wordProblems.length > 0) {
         // If we have both types, try to fit all regular problems on page 1
         // and word problems starting on page 1 if there's space, or page 2
         const mathProblemsPerPage = 30; // 2 columns, with increased padding
-        const wordProblemsPerPage = 7; // Single column, needs more space
+        const wordProblemsPerPage = 10; // Single column, needs more space
 
         if (regularProblems.length <= 10) {
             // All math problems fit on page 1 with word problems (conservative estimate)
-            const wordProblemsOnFirstPage = Math.min(Math.max(0, 7 - Math.ceil(regularProblems.length / 2)), wordProblems.length);
+            const wordProblemsOnFirstPage = Math.min(Math.max(0, 10 - Math.ceil(regularProblems.length / 2)), wordProblems.length);
             pages.push([...regularProblems, ...wordProblems.slice(0, wordProblemsOnFirstPage)]);
             // Remaining word problems on next pages
             for (let i = wordProblemsOnFirstPage; i < wordProblems.length; i += wordProblemsPerPage) {
@@ -57,8 +57,8 @@ export default function WorksheetPreview({ problems, config }) {
             pages.push(regularProblems.slice(i, i + mathProblemsPerPage));
         }
     } else {
-        // Only word problems - fit 7 per page
-        const wordProblemsPerPage = 7;
+        // Only word problems - fit 10 per page
+        const wordProblemsPerPage = 10;
         for (let i = 0; i < wordProblems.length; i += wordProblemsPerPage) {
             pages.push(wordProblems.slice(i, i + wordProblemsPerPage));
         }
@@ -95,7 +95,12 @@ export default function WorksheetPreview({ problems, config }) {
                                 {pageIndex === 0 && wordProblems.length > 0 && (
                                     <h3 className="section-title">Section A: Number Problems</h3>
                                 )}
-                                <div className="problems-grid math-problems-grid">
+                                <div 
+                                    className="problems-grid math-problems-grid"
+                                    style={{
+                                        gridTemplateRows: `repeat(${Math.ceil(pageProblems.filter(p => !p.isWordProblem).length / 2)}, auto)`
+                                    }}
+                                >
                                     {pageProblems.filter(p => !p.isWordProblem).map((problem, index) => (
                                         <div key={index} className="problem-item">
                                             <span className="problem-number">{problem.number}.</span>
