@@ -1,50 +1,83 @@
-# WorksheetGenerator
+# 📝 SmartWorksheet Generator
 
-This repo contains a React application to generate printable worksheets for kids to practice.
+A React-based web application that generates customizable, printable math worksheets for kids to practice arithmetic operations.
 
 ## Features
 
-- Modern React 19 application built with Vite
-- Ready for deployment to Vercel
-- Clean and simple UI
-- Fast development with Hot Module Replacement (HMR)
+- **Multiple Problem Types**: Addition, subtraction, multiplication, and division
+- **Customizable Difficulty**: Control the number of digits for each operation type
+- **Word Problems**: Optional contextual math problems with currency support
+- **Flexible Configuration**: Choose number of questions (5-50) and worksheet title
+- **Answer Key**: Option to include answers for checking work
+- **Export Options**: Print directly or download as PDF
+- **Live Preview**: See your worksheet before printing or exporting
+- **Advanced Settings**: Fine-tune digit counts, currency symbols, and word problem quantities
 
-## Getting Started
+## How to Use
 
-### Development
+### 1. Configure Your Worksheet
 
-Install dependencies:
+**Select Problem Types:**
+- Check or uncheck the boxes for Addition, Subtraction, Multiplication, and Division
+- At least one problem type must be selected
 
-```bash
-npm install
-```
+**Set Number of Questions:**
+- Choose between 5 and 50 questions using the number input
 
-Start the development server:
+**Customize Title:**
+- Enter a custom title for your worksheet (e.g., "Math Practice - Week 1")
 
-```bash
-npm run dev
-```
+**Word Problems (Optional):**
+- Check "Include Word Problems" to add contextual math problems
+- Word problems use real-world scenarios with currency
 
-### Building for Production
+**Answer Key:**
+- Check "Include Answer Key in PDF" to include solutions at the end
 
-Build the application:
+### 2. Advanced Settings (Optional)
 
-```bash
-npm run build
-```
+Click the **⚙️ Advanced Settings** button to access additional options:
 
-Preview the production build:
+- **Digit Settings**: Control complexity for each operation type
+  - Addition: 1-5 digits per number
+  - Subtraction: 1-5 digits per number
+  - Multiplication: Set separate digits for multiplicand and multiplier
+  - Division: Control divisor digit count
+  
+- **Word Problems**: 
+  - Set how many word problems to include (1-10)
+  - Choose currency symbol (₹, $, €, £, ¥)
 
-```bash
-npm run preview
-```
+Click **Apply** to save your advanced settings.
 
-## Deployment
+### 3. Generate Worksheet
 
-This application is configured for easy deployment to Vercel. Simply connect your repository to Vercel and it will automatically detect the configuration and deploy.
+Click the **🎲 Generate Worksheet** button to create your worksheet with the selected configuration.
+
+### 4. Review and Export
+
+Once generated, you'll see a live preview of your worksheet. Use the action buttons:
+
+- **🖨️ Print**: Opens the browser print dialog for immediate printing
+- **📄 Download PDF**: Exports the worksheet as a PDF file you can save and share
+
+The worksheet includes:
+- Your custom title at the top
+- Problems arranged in a clean, easy-to-read layout
+- Space for students to write answers
+- Answer key on a separate page (if enabled)
+
+### Tips for Best Results
+
+- Start with 2-digit numbers for younger students
+- Mix different problem types to provide variety
+- Use word problems to practice reading comprehension alongside math
+- Generate multiple worksheets with the same settings for consistent practice
+- Print answer keys separately to use as a teaching tool
 
 ## Technologies
 
 - React 19
 - Vite
-- ESLint for code quality
+- jsPDF (PDF generation)
+- ESLint
