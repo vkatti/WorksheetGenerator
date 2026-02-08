@@ -80,10 +80,9 @@ export default function WorksheetPreview({ problems, config }) {
                     ) : (
                         // Subsequent pages: Only page number and date
                         <div className="worksheet-header continuation-header">
-                            <div className="worksheet-meta">
-                                <span>Page {pageIndex + 1} of {pages.length}</span>
-                                <span>•</span>
-                                <span>{date}</span>
+                            <div className="worksheet-meta continuation-meta">
+                                <span className="page-number">Page {pageIndex + 1} of {pages.length}</span>
+                                <span className="page-date">{date}</span>
                             </div>
                         </div>
                     )}
@@ -93,7 +92,7 @@ export default function WorksheetPreview({ problems, config }) {
                         {pageProblems.some(p => !p.isWordProblem) && (
                             <>
                                 {pageIndex === 0 && wordProblems.length > 0 && (
-                                    <h3 className="section-title">Section A: Math Problems</h3>
+                                    <h3 className="section-title">Section A: Number Problems</h3>
                                 )}
                                 <div className="problems-grid math-problems-grid">
                                     {pageProblems.filter(p => !p.isWordProblem).map((problem, index) => (
@@ -146,7 +145,7 @@ export default function WorksheetPreview({ problems, config }) {
                     {regularProblems.length > 0 && (
                         <>
                             {wordProblems.length > 0 && (
-                                <h3 className="section-title">Section A: Math Problems</h3>
+                                <h3 className="section-title">Section A: Number Problems</h3>
                             )}
                             <div className="answers-grid">
                                 {regularProblems.map((problem, index) => (

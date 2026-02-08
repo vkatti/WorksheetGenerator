@@ -68,6 +68,21 @@
     margin-bottom: 0;
 }
 
+.worksheet-meta.continuation-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.worksheet-meta.continuation-meta .page-number {
+    text-align: left;
+}
+
+.worksheet-meta.continuation-meta .page-date {
+    text-align: right;
+}
+
 .worksheet-header h1 {
     margin: 0 0 8px 0;
     font-size: 28px;
