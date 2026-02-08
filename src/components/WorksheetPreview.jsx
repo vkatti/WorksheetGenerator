@@ -31,15 +31,16 @@ export default function WorksheetPreview({ problems, config }) {
         const mathProblemsPerPage = 30; // 2 columns, with increased padding
         const wordProblemsPerPage = 10; // Single column, needs more space
 
-        if (regularProblems.length <= 14) {
-            // All math problems fit on page 1 with word problems
-            pages.push([...regularProblems, ...wordProblems.slice(0, Math.max(0, wordProblemsPerPage - Math.ceil(regularProblems.length / 2)))]);
+        if (regularProblems.length <= 10) {
+            // All math problems fit on page 1 with word problems (conservative estimate)
+            const wordProblemsOnFirstPage = Math.min(Math.max(0, 10 - Math.ceil(regularProblems.length / 2)), wordProblems.length);
+            pages.push([...regularProblems, ...wordProblems.slice(0, wordProblemsOnFirstPage)]);
             // Remaining word problems on next pages
-            for (let i = Math.max(0, wordProblemsPerPage - Math.ceil(regularProblems.length / 2)); i < wordProblems.length; i += wordProblemsPerPage) {
+            for (let i = wordProblemsOnFirstPage; i < wordProblems.length; i += wordProblemsPerPage) {
                 pages.push(wordProblems.slice(i, i + wordProblemsPerPage));
             }
         } else {
-            // More than 14 math problems - word problems must start on next page
+            // More than 10 math problems - word problems must start on next page
             // Paginate math problems first
             for (let i = 0; i < regularProblems.length; i += mathProblemsPerPage) {
                 pages.push(regularProblems.slice(i, i + mathProblemsPerPage));
@@ -94,7 +95,12 @@ export default function WorksheetPreview({ problems, config }) {
                                 {pageIndex === 0 && wordProblems.length > 0 && (
                                     <h3 className="section-title">Section A: Number Problems</h3>
                                 )}
-                                <div className="problems-grid math-problems-grid">
+                                <div 
+                                    className="problems-grid math-problems-grid"
+                                    style={{
+                                        gridTemplateRows: `repeat(${Math.ceil(pageProblems.filter(p => !p.isWordProblem).length / 2)}, auto)`
+                                    }}
+                                >
                                     {pageProblems.filter(p => !p.isWordProblem).map((problem, index) => (
                                         <div key={index} className="problem-item">
                                             <span className="problem-number">{problem.number}.</span>
