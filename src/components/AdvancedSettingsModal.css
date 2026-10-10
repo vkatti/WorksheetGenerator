@@ -30,7 +30,7 @@
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    max-width: 500px;
+    max-width: 620px;
     width: 100%;
     max-height: 85vh;
     display: flex;
@@ -56,7 +56,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px 24px;
-    border-bottom: 1px solid #e0e0e0;
+    background: var(--color-pastel-blue);
+    border-bottom: 1px solid var(--color-border);
+    border-radius: 12px 12px 0 0;
 }
 
 .modal-header h2 {
@@ -87,6 +89,7 @@
 .modal-body {
     padding: 24px;
     overflow-y: auto;
+    overflow-x: hidden;
     flex: 1;
 }
 
@@ -98,11 +101,28 @@
     margin-bottom: 0;
 }
 
-.modal-section h3 {
+.modal-intro {
     margin: 0 0 16px 0;
+    padding: 8px 12px;
+    background: var(--color-surface-muted);
+    border-left: 3px solid var(--color-primary-light);
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--color-text-muted);
+}
+
+.modal-section h3 {
+    margin: 0 0 8px 0;
     color: #555;
     font-size: 16px;
     font-weight: 600;
+}
+
+.modal-section-hint {
+    margin: 0 0 16px 0;
+    font-size: 12px;
+    color: #888;
 }
 
 .modal-input-group {
@@ -114,7 +134,9 @@
 }
 
 .modal-input-group label {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     margin-bottom: 6px;
     font-size: 13px;
     color: #555;
@@ -138,7 +160,7 @@
 .modal-input-group input[type="number"]:focus,
 .modal-input-group select:focus {
     outline: none;
-    border-color: #646cff;
+    border-color: var(--color-primary);
 }
 
 .modal-input-hint {
@@ -178,12 +200,12 @@
 }
 
 .modal-btn-apply {
-    background: #646cff;
+    background: var(--color-primary);
     color: white;
 }
 
 .modal-btn-apply:hover {
-    background: #535bf2;
+    background: var(--color-primary-hover);
 }
 
 .modal-btn:active {
@@ -197,6 +219,7 @@
     }
 
     .modal-header {
+        background: #1e3a4f;
         border-bottom-color: #404040;
     }
 
@@ -217,6 +240,10 @@
         color: #c0c0c0;
     }
 
+    .modal-section-hint {
+        color: #999;
+    }
+
     .modal-input-group label {
         color: #c0c0c0;
     }
@@ -230,7 +257,7 @@
 
     .modal-input-group input[type="number"]:focus,
     .modal-input-group select:focus {
-        border-color: #646cff;
+        border-color: var(--color-primary);
     }
 
     .modal-input-hint {

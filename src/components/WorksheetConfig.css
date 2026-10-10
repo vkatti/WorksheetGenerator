@@ -1,8 +1,9 @@
 .worksheet-config {
-    background: #ffffff;
+    background: var(--color-surface);
     border-radius: 12px;
     padding: 24px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--color-border);
     max-width: 400px;
     min-height: 730px;
     display: flex;
@@ -27,11 +28,30 @@
 }
 
 .config-section>label {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #333;
+    color: var(--color-text);
     font-size: 14px;
+}
+
+.help-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    color: var(--color-text-muted);
+    cursor: help;
+    transition: color 0.15s ease;
+}
+
+.help-icon:hover,
+.help-icon:focus {
+    color: var(--color-primary);
+    outline: none;
 }
 
 .config-section select,
@@ -51,13 +71,19 @@
 .config-section input[type="number"]:focus,
 .config-section input[type="text"]:focus {
     outline: none;
-    border-color: #646cff;
+    border-color: var(--color-primary);
 }
 
 .checkbox-group {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .checkbox-label {
@@ -104,7 +130,7 @@
 .generate-btn {
     width: 100%;
     padding: 14px 24px;
-    background: #646cff;
+    background: var(--color-secondary);
     color: white;
     border: none;
     border-radius: 8px;
@@ -116,7 +142,7 @@
 }
 
 .generate-btn:hover {
-    background: #535bf2;
+    background: var(--color-secondary-hover);
 }
 
 .generate-btn:active {
@@ -126,9 +152,9 @@
 .advanced-settings-btn {
     width: 100%;
     padding: 12px 24px;
-    background: #f5f5f5;
-    color: #555;
-    border: 2px solid #e0e0e0;
+    background: var(--color-surface-muted);
+    color: var(--color-text-muted);
+    border: 2px solid var(--color-border);
     border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
@@ -138,8 +164,9 @@
 }
 
 .advanced-settings-btn:hover {
-    background: #e8e8e8;
-    border-color: #d0d0d0;
+    background: var(--color-pastel-blue);
+    border-color: var(--color-primary-light);
+    color: var(--color-text);
 }
 
 .advanced-settings-btn:active {
@@ -182,7 +209,7 @@
     .config-section input[type="number"]:focus,
     .config-section input[type="text"]:focus,
     .input-group input[type="number"]:focus {
-        border-color: #646cff;
+        border-color: var(--color-primary);
     }
 
     .advanced-settings-btn {

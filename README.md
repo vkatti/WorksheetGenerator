@@ -1,4 +1,4 @@
-# 📝 SmartWorksheet Generator
+# 🧵 WorksheetLoom
 
 A React-based web application that generates customizable, printable math worksheets for kids to practice arithmetic operations.
 
@@ -7,7 +7,7 @@ A React-based web application that generates customizable, printable math worksh
 - **Multiple Problem Types**: Addition, subtraction, multiplication, and division
 - **Customizable Difficulty**: Control the number of digits for each operation type
 - **Word Problems**: Optional contextual math problems with currency support
-- **Flexible Configuration**: Choose number of questions (5-50) and worksheet title
+- **Flexible Configuration**: Choose number of questions (5-100) and worksheet title
 - **Answer Key**: Option to include answers for checking work
 - **Export Options**: Print directly or download as PDF
 - **Live Preview**: See your worksheet before printing or exporting
@@ -22,7 +22,7 @@ A React-based web application that generates customizable, printable math worksh
 - At least one problem type must be selected
 
 **Set Number of Questions:**
-- Choose between 5 and 50 questions using the number input
+- Choose between 5 and 100 questions using the number input
 
 **Customize Title:**
 - Enter a custom title for your worksheet (e.g., "Math Practice - Week 1")
@@ -32,7 +32,7 @@ A React-based web application that generates customizable, printable math worksh
 - Word problems use real-world scenarios with currency
 
 **Answer Key:**
-- Check "Include Answer Key in PDF" to include solutions at the end
+- Check "Include Answer Key" to include solutions at the end
 
 ### 2. Advanced Settings (Optional)
 
@@ -46,7 +46,7 @@ Click the **⚙️ Advanced Settings** button to access additional options:
   
 - **Word Problems**: 
   - Set how many word problems to include (1-10)
-  - Choose currency symbol (₹, $, €, £, ¥)
+  - Choose currency symbol ($, £, €, ₹)
 
 Click **Apply** to save your advanced settings.
 

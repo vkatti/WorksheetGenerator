@@ -1,4 +1,4 @@
-// Problem Generators for SmartWorksheet
+// Problem Generators for WorksheetLoom
 
 // Helper: Generate random number with specific digit count
 function randomWithDigits(digitCount) {
@@ -136,7 +136,7 @@ const wordTemplates = [
 // Word Logic Problem Generator
 export function generateWordProblem(config) {
     const { problemType = 'addition', addendDigits = 2, subtrahendDigits = 2,
-        multiplicandDigits = 2, multiplierDigits = 1, divisorDigits = 1, currency = '₹' } = config;
+        multiplicandDigits = 2, multiplierDigits = 1, divisorDigits = 1, currency = '$' } = config;
 
     // Filter templates by problem type
     const templates = wordTemplates.filter(t => t.type === problemType);

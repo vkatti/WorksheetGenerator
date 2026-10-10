@@ -3,6 +3,7 @@ import './App.css';
 import { Analytics } from '@vercel/analytics/react';
 import WorksheetConfig from './components/WorksheetConfig';
 import WorksheetPreview from './components/WorksheetPreview';
+import Tooltip from './components/Tooltip';
 import { generateProblems } from './utils/problemGenerators';
 import { exportToPDF, printWorksheet } from './utils/pdfExporter';
 
@@ -17,7 +18,7 @@ function App() {
     questionCount: 15,
     includeWordProblems: false,
     wordProblemCount: 5,
-    currency: '₹',
+    currency: '$',
     worksheetTitle: 'Worksheet',
     includeAnswerKey: true
   });
@@ -63,8 +64,11 @@ function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>📝 SmartWorksheet Generator</h1>
-        <p>Generate printable math and logic worksheets for kids</p>
+        <h1>
+          <img src="/logo.png" alt="WorksheetLoom logo" className="app-logo" />
+          WorksheetLoom
+        </h1>
+        <p>Printable math and logic worksheets, made simple for teachers and parents.</p>
       </header>
 
       <div className="app-content">
@@ -79,21 +83,23 @@ function App() {
         <main className="preview-panel">
           {problems.length > 0 && (
             <div className="action-buttons">
-              <button
-                className="action-btn print-btn"
-                onClick={handlePrint}
-                title="Print worksheet"
-              >
-                🖨️ Print
-              </button>
-              <button
-                className="action-btn pdf-btn"
-                onClick={handleExportPDF}
-                disabled={isExporting}
-                title="Download as PDF"
-              >
-                {isExporting ? '⏳ Exporting...' : '📄 Download PDF'}
-              </button>
+              <Tooltip text="Opens your browser's print dialog using the worksheet above.">
+                <button
+                  className="action-btn print-btn"
+                  onClick={handlePrint}
+                >
+                  🖨️ Print
+                </button>
+              </Tooltip>
+              <Tooltip text="Saves the worksheet (and answer key, if enabled) as a PDF file you can share or print later.">
+                <button
+                  className="action-btn pdf-btn"
+                  onClick={handleExportPDF}
+                  disabled={isExporting}
+                >
+                  {isExporting ? '⏳ Exporting...' : '📄 Download PDF'}
+                </button>
+              </Tooltip>
             </div>
           )}
 

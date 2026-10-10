@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import './AdvancedSettingsModal.css';
+import Tooltip from './Tooltip';
+import InfoIcon from './InfoIcon';
+import { MultiplicandDiagram, MultiplierDiagram, DivisorDiagram } from './MathTermDiagram';
 
 export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply }) {
     // Local state to hold temporary values until Apply is clicked
@@ -71,10 +74,18 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
 
                 {/* Body */}
                 <div className="modal-body">
+                    <p className="modal-intro">
+                        These settings control number ranges{config.includeWordProblems ? ' and currency formatting' : ''}.
+                        They only affect the problem types and options you've already turned on.
+                    </p>
+
                     {/* Digit Settings for Enabled Operations */}
                     {config.problemTypes.length > 0 && (
                         <div className="modal-section">
                             <h3>📐 Digit Settings</h3>
+                            <p className="modal-section-hint">
+                                Sets how many digits appear in each number, e.g. 2 digits allows numbers from 10-99.
+                            </p>
 
                             {config.problemTypes.includes('addition') && (
                                 <div className="modal-input-group">
@@ -113,6 +124,9 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                                     <div className="modal-input-group">
                                         <label htmlFor="modal-multiplicandDigits">
                                             Multiplication - Multiplicand Digits
+                                            <Tooltip wide content={<MultiplicandDiagram />}>
+                                                <span className="help-icon" tabIndex={0} aria-label="Help: what is a multiplicand"><InfoIcon /></span>
+                                            </Tooltip>
                                         </label>
                                         <input
                                             id="modal-multiplicandDigits"
@@ -126,6 +140,9 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                                     <div className="modal-input-group">
                                         <label htmlFor="modal-multiplierDigits">
                                             Multiplication - Multiplier Digits
+                                            <Tooltip wide content={<MultiplierDiagram />}>
+                                                <span className="help-icon" tabIndex={0} aria-label="Help: what is a multiplier"><InfoIcon /></span>
+                                            </Tooltip>
                                         </label>
                                         <input
                                             id="modal-multiplierDigits"
@@ -143,6 +160,9 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                                 <div className="modal-input-group">
                                     <label htmlFor="modal-divisorDigits">
                                         Division - Divisor Digits
+                                        <Tooltip wide content={<DivisorDiagram />}>
+                                            <span className="help-icon" tabIndex={0} aria-label="Help: what is a divisor"><InfoIcon /></span>
+                                        </Tooltip>
                                     </label>
                                     <input
                                         id="modal-divisorDigits"
@@ -186,11 +206,14 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                                     value={tempConfig.currency}
                                     onChange={(e) => handleTempChange('currency', e.target.value)}
                                 >
-                                    <option value="₹">₹ (Rupee)</option>
                                     <option value="$">$ (US Dollar)</option>
-                                    <option value="€">€ (Euro)</option>
                                     <option value="£">£ (Pound)</option>
+                                    <option value="€">€ (Euro)</option>
+                                    <option value="₹">₹ (Rupee)</option>
                                 </select>
+                                <span className="modal-input-hint">
+                                    Used in any word problems involving money.
+                                </span>
                             </div>
                         </div>
                     )}
