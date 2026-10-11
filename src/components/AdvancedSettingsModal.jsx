@@ -124,7 +124,7 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                                     <div className="modal-input-group">
                                         <label htmlFor="modal-multiplicandDigits">
                                             Multiplication - Multiplicand Digits
-                                            <Tooltip wide content={<MultiplicandDiagram />}>
+                                            <Tooltip wide position="right" content={<MultiplicandDiagram />}>
                                                 <span className="help-icon" tabIndex={0} aria-label="Help: what is a multiplicand"><InfoIcon /></span>
                                             </Tooltip>
                                         </label>
@@ -140,7 +140,7 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                                     <div className="modal-input-group">
                                         <label htmlFor="modal-multiplierDigits">
                                             Multiplication - Multiplier Digits
-                                            <Tooltip wide content={<MultiplierDiagram />}>
+                                            <Tooltip wide position="right" content={<MultiplierDiagram />}>
                                                 <span className="help-icon" tabIndex={0} aria-label="Help: what is a multiplier"><InfoIcon /></span>
                                             </Tooltip>
                                         </label>
@@ -160,7 +160,7 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                                 <div className="modal-input-group">
                                     <label htmlFor="modal-divisorDigits">
                                         Division - Divisor Digits
-                                        <Tooltip wide content={<DivisorDiagram />}>
+                                        <Tooltip wide position="right" content={<DivisorDiagram />}>
                                             <span className="help-icon" tabIndex={0} aria-label="Help: what is a divisor"><InfoIcon /></span>
                                         </Tooltip>
                                     </label>

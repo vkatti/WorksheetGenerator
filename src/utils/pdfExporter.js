@@ -26,20 +26,27 @@ export async function exportToPDF() {
         for (let i = 0; i < pages.length; i++) {
             const page = pages[i];
 
-            // Capture the page as canvas
+            // Capture the page as canvas, clipped strictly to the page's own
+            // box so nothing (e.g. the footer) can bleed past the A4 boundary
             const canvas = await html2canvas(page, {
                 scale: 2, // Higher quality
                 useCORS: true,
                 logging: false,
-                backgroundColor: '#ffffff'
+                backgroundColor: '#ffffff',
+                width: page.offsetWidth,
+                height: page.offsetHeight,
+                windowWidth: page.offsetWidth,
+                windowHeight: page.offsetHeight
             });
 
             // Convert canvas to image
             const imgData = canvas.toDataURL('image/png');
 
-            // Calculate dimensions to fit A4
+            // Every worksheet page is a fixed A4 box, so draw it at the
+            // exact A4 dimensions rather than deriving height from the
+            // canvas aspect ratio (which can drift from rounding).
             const imgWidth = pageWidth;
-            const imgHeight = (canvas.height * pageWidth) / canvas.width;
+            const imgHeight = pageHeight;
 
             // Add new page if not the first page
             if (i > 0) {

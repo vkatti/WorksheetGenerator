@@ -4,7 +4,7 @@ import AdvancedSettingsModal from './AdvancedSettingsModal';
 import Tooltip from './Tooltip';
 import InfoIcon from './InfoIcon';
 
-export default function WorksheetConfig({ config, onConfigChange, onGenerate }) {
+export default function WorksheetConfig({ config, onConfigChange, onGenerate, onLegalLinkClick }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleChange = (field, value) => {
@@ -35,13 +35,13 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
 
     return (
         <div className="worksheet-config">
-            <h2>📝 Worksheet Configuration</h2>
+            <h2>Worksheet Configuration</h2>
 
             {/* Problem Types */}
             <div className="config-section">
                 <label>
                     Problem Types
-                    <Tooltip text="Pick which kinds of math problems to include. You can select more than one.">
+                    <Tooltip position="right" text="Pick which kinds of math problems to include. You can select more than one.">
                         <span className="help-icon" tabIndex={0} aria-label="Help: problem types"><InfoIcon /></span>
                     </Tooltip>
                 </label>
@@ -68,7 +68,7 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
             <div className="config-section">
                 <label htmlFor="questionCount">
                     Number of Questions
-                    <Tooltip text="Total questions on the worksheet (5-100). If word problems are included, they count toward this total.">
+                    <Tooltip position="right" text="Total questions on the worksheet (5-100). If word problems are included, they count toward this total.">
                         <span className="help-icon" tabIndex={0} aria-label="Help: number of questions"><InfoIcon /></span>
                     </Tooltip>
                 </label>
@@ -96,7 +96,7 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
                         />
                         <span>Include Word Problems</span>
                     </label>
-                    <Tooltip text="Adds real-life story problems (e.g. shopping, sharing) alongside the number problems, using the currency set in Advanced Settings.">
+                    <Tooltip position="right" text="Adds real-life story problems (e.g. shopping, sharing) alongside the number problems, using the currency set in Advanced Settings.">
                         <span className="help-icon" tabIndex={0} aria-label="Help: word problems"><InfoIcon /></span>
                     </Tooltip>
                 </div>
@@ -113,7 +113,7 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
                         />
                         <span>Include Answer Key</span>
                     </label>
-                    <Tooltip text="Adds a separate answer key page at the end of the worksheet, included in both Print and the downloaded PDF.">
+                    <Tooltip position="right" text="Adds a separate answer key page at the end of the worksheet, included in both Print and the downloaded PDF.">
                         <span className="help-icon" tabIndex={0} aria-label="Help: answer key"><InfoIcon /></span>
                     </Tooltip>
                 </div>
@@ -123,7 +123,7 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
             <div className="config-section">
                 <label htmlFor="worksheetTitle">
                     Worksheet Title
-                    <Tooltip text="Shown as the heading at the top of the printed worksheet, e.g. a class name or topic.">
+                    <Tooltip position="right" text="Shown as the heading at the top of the printed worksheet, e.g. a class name or topic.">
                         <span className="help-icon" tabIndex={0} aria-label="Help: worksheet title"><InfoIcon /></span>
                     </Tooltip>
                 </label>
@@ -152,9 +152,23 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
                 🎲 Generate Worksheet
             </button>
 
-            <a className="support-email-link" href="mailto:support@worksheetloom.com">
-                Need help? <span>Get Support</span>
-            </a>
+            <p className="support-email-text">
+                Need help? <a className="support-email-link" href="mailto:support@worksheetloom.com">Get Support</a>
+            </p>
+
+            <div className="sidebar-footer-links">
+                <button className="footer-link" onClick={() => onLegalLinkClick('privacy')}>
+                    Privacy Policy
+                </button>
+                <span className="footer-divider">·</span>
+                <button className="footer-link" onClick={() => onLegalLinkClick('terms')}>
+                    Terms of Use
+                </button>
+                <span className="footer-divider">·</span>
+                <button className="footer-link" onClick={() => onLegalLinkClick('faq')}>
+                    FAQ
+                </button>
+            </div>
 
             {/* Advanced Settings Modal */}
             <AdvancedSettingsModal

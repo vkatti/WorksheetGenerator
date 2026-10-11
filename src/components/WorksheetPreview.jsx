@@ -58,6 +58,30 @@ export default function WorksheetPreview({ problems, config }) {
         }
     }
 
+    // Paginate the Answer Key the same way the question pages are paginated,
+    // so a large question count can never get clipped off a single sheet.
+    const ANSWERS_PER_PAGE = 60;
+    const allAnswerItems = [...regularProblems, ...wordProblems];
+    const answerChunks = [];
+    for (let i = 0; i < allAnswerItems.length; i += ANSWERS_PER_PAGE) {
+        answerChunks.push(allAnswerItems.slice(i, i + ANSWERS_PER_PAGE));
+    }
+    if (answerChunks.length === 0) {
+        answerChunks.push([]);
+    }
+
+    let sectionAShown = false;
+    let sectionBShown = false;
+    const answerPagesData = answerChunks.map((chunkItems) => {
+        const chunkRegular = chunkItems.filter(p => !p.isWordProblem);
+        const chunkWord = chunkItems.filter(p => p.isWordProblem);
+        const showSectionA = chunkRegular.length > 0 && !sectionAShown;
+        const showSectionB = chunkWord.length > 0 && !sectionBShown;
+        if (showSectionA) sectionAShown = true;
+        if (showSectionB) sectionBShown = true;
+        return { chunkRegular, chunkWord, showSectionA, showSectionB };
+    });
+
     return (
         <div className="worksheet-preview" id="worksheet-content">
             {/* Questions Pages */}
@@ -136,24 +160,26 @@ export default function WorksheetPreview({ problems, config }) {
                 </div>
             ))}
 
-            {/* Answer Key Page */}
-            {config.includeAnswerKey && (
-                <div className="worksheet-page answer-page">
+            {/* Answer Key Pages */}
+            {config.includeAnswerKey && answerPagesData.map((pageData, pageIndex) => (
+                <div key={`answer-page-${pageIndex}`} className="worksheet-page answer-page">
                     <div className="answer-header">
                         <h2>Answer Key</h2>
-                        <div className="answer-meta">
-                            <span>{problems.length} Questions</span>
-                        </div>
+                        {pageIndex === 0 && (
+                            <div className="answer-meta">
+                                <span>{problems.length} Questions</span>
+                            </div>
+                        )}
                     </div>
 
                     {/* Math Problems Answers */}
-                    {regularProblems.length > 0 && (
+                    {pageData.chunkRegular.length > 0 && (
                         <>
-                            {wordProblems.length > 0 && (
+                            {pageData.showSectionA && wordProblems.length > 0 && (
                                 <h3 className="section-title">Section A: Number Problems</h3>
                             )}
                             <div className="answers-grid">
-                                {regularProblems.map((problem, index) => (
+                                {pageData.chunkRegular.map((problem, index) => (
                                     <div key={index} className="answer-item">
                                         <span className="answer-number">{problem.number}.</span>
                                         <span className="answer-value">{problem.answer}</span>
@@ -164,13 +190,15 @@ export default function WorksheetPreview({ problems, config }) {
                     )}
 
                     {/* Word Problems Answers */}
-                    {wordProblems.length > 0 && (
+                    {pageData.chunkWord.length > 0 && (
                         <>
-                            <h3 className="section-title">
-                                {regularProblems.length > 0 ? 'Section B: Word Problems' : 'Word Problems'}
-                            </h3>
+                            {pageData.showSectionB && (
+                                <h3 className="section-title">
+                                    {regularProblems.length > 0 ? 'Section B: Word Problems' : 'Word Problems'}
+                                </h3>
+                            )}
                             <div className="answers-grid">
-                                {wordProblems.map((problem, index) => (
+                                {pageData.chunkWord.map((problem, index) => (
                                     <div key={index} className="answer-item">
                                         <span className="answer-number">{problem.number}.</span>
                                         <span className="answer-value">{problem.answer}</span>
@@ -181,11 +209,11 @@ export default function WorksheetPreview({ problems, config }) {
                     )}
 
                     <div className="worksheet-footer">
-                        <span className="footer-page-info">Page 1 of 1</span>
+                        <span className="footer-page-info">Page {pageIndex + 1} of {answerPagesData.length}</span>
                         <span className="footer-brand">Generated by WorksheetLoom.com</span>
                     </div>
                 </div>
-            )}
+            ))}
         </div>
     );
 }
