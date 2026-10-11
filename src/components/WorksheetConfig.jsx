@@ -152,6 +152,10 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate }) 
                 🎲 Generate Worksheet
             </button>
 
+            <a className="support-email-link" href="mailto:support@worksheetloom.com">
+                Need help? <span>Get Support</span>
+            </a>
+
             {/* Advanced Settings Modal */}
             <AdvancedSettingsModal
                 isOpen={isModalOpen}

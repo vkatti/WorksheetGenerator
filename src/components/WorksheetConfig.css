@@ -149,6 +149,29 @@
     transform: translateY(1px);
 }
 
+.support-email-link {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-top: -12px;
+    margin-bottom: 24px;
+}
+
+.support-email-link span {
+    color: var(--color-primary);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.support-email-link:hover span,
+.support-email-link:focus span {
+    color: var(--color-primary-dark, var(--color-primary));
+}
+
 .advanced-settings-btn {
     width: 100%;
     padding: 12px 24px;
