@@ -28,24 +28,22 @@
     display: flex;
     gap: 30px;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     max-width: 100%;
 }
 
 /* Worksheet Page Layout (A4-sized) */
 .worksheet-page {
     width: 210mm;
-    height: 297mm;
     min-height: 297mm;
-    max-height: 297mm;
-    padding: 15mm 15mm 10mm 15mm;
+    padding: 15mm;
     background: white;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
     position: relative;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 }
 
 /* Header */
@@ -57,8 +55,6 @@
 
 .worksheet-content {
     flex: 1;
-    min-height: 0;
-    overflow: hidden;
 }
 
 .worksheet-header h1 {

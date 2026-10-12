@@ -7,7 +7,7 @@ import Tooltip from './components/Tooltip';
 import InfoModal from './components/InfoModal';
 import { PrivacyPolicyContent, TermsOfUseContent, FAQContent } from './content/legalContent';
 import { generateProblems } from './utils/problemGenerators';
-import { exportToPDF, printWorksheet } from './utils/pdfExporter';
+import { exportToPDF, printWorksheet, prefetchPdfEngine } from './utils/typstExporter';
 
 function App() {
   const [config, setConfig] = useState({
@@ -61,6 +61,7 @@ function App() {
   const handleGenerate = () => {
     const newProblems = generateProblems(config);
     setProblems(newProblems);
+    prefetchPdfEngine();
   };
 
   const handleExportPDF = async () => {
@@ -71,7 +72,7 @@ function App() {
 
     setIsExporting(true);
     try {
-      await exportToPDF();
+      await exportToPDF(problems, config);
     } catch (error) {
       alert('Error generating PDF. Please try again.');
       console.error(error);
@@ -80,17 +81,22 @@ function App() {
     }
   };
 
-  const handlePrint = () => {
+  const handlePrint = async () => {
     if (problems.length === 0) {
       alert('Please generate a worksheet first!');
       return;
     }
-    printWorksheet();
+    try {
+      await printWorksheet(problems, config);
+    } catch (error) {
+      alert('Error preparing the print view. Please try again.');
+      console.error(error);
+    }
   };
 
   const renderActionButtons = (tooltipPosition) => (
     <div className="action-buttons">
-      <Tooltip position={tooltipPosition} text="Opens your browser's print dialog using the worksheet above.">
+      <Tooltip position={tooltipPosition} text="Opens your browser's print dialog for the worksheet PDF.">
         <button
           className="action-btn print-btn"
           onClick={handlePrint}
