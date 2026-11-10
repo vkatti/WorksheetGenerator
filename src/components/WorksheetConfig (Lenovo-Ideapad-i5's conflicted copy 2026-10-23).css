@@ -1,0 +1,278 @@
+.worksheet-config {
+    background: var(--color-surface);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--color-border);
+    max-width: 400px;
+    min-height: 730px;
+    display: flex;
+    flex-direction: column;
+}
+
+.worksheet-config h2 {
+    margin: 0 0 24px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.worksheet-config h3 {
+    margin: 16px 0 12px 0;
+    color: #555;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.config-section {
+    margin-bottom: 24px;
+}
+
+.config-section>label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 14px;
+}
+
+.help-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    color: var(--color-text-muted);
+    cursor: help;
+    transition: color 0.15s ease;
+}
+
+.help-icon:hover,
+.help-icon:focus {
+    color: var(--color-primary);
+    outline: none;
+}
+
+.config-section select,
+.config-section input[type="number"],
+.config-section input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.config-section select:focus,
+.config-section input[type="number"]:focus,
+.config-section input[type="text"]:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    font-weight: normal;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.checkbox-label span {
+    user-select: none;
+}
+
+.input-group {
+    margin-bottom: 24px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #555;
+    font-weight: 500;
+}
+
+.input-group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.generate-btn {
+    width: 100%;
+    padding: 14px 24px;
+    background: var(--color-secondary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-bottom: 24px;
+}
+
+.generate-btn:hover {
+    background: var(--color-secondary-hover);
+}
+
+.generate-btn:active {
+    transform: translateY(1px);
+}
+
+.support-email-text {
+    width: 100%;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: -12px;
+    margin-bottom: 24px;
+}
+
+.support-email-link {
+    color: var(--color-primary);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.support-email-link:hover,
+.support-email-link:focus {
+    color: var(--color-primary-dark, var(--color-primary));
+}
+
+.sidebar-footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
+}
+
+.footer-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.8em;
+    color: var(--color-text-muted);
+    opacity: 0.8;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: inherit;
+}
+
+.footer-link:hover {
+    opacity: 1;
+}
+
+.footer-divider {
+    color: var(--color-text-muted);
+    opacity: 0.5;
+    font-size: 0.8em;
+}
+
+.advanced-settings-btn {
+    width: 100%;
+    padding: 12px 24px;
+    background: var(--color-surface-muted);
+    color: var(--color-text-muted);
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 12px;
+}
+
+.advanced-settings-btn:hover {
+    background: var(--color-pastel-blue);
+    border-color: var(--color-primary-light);
+    color: var(--color-text);
+}
+
+.advanced-settings-btn:active {
+    transform: translateY(1px);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .worksheet-config {
+        background: #242424;
+    }
+
+    .worksheet-config h2 {
+        color: #e0e0e0;
+    }
+
+    .worksheet-config h3 {
+        color: #c0c0c0;
+    }
+
+    .config-section>label,
+    .checkbox-label {
+        color: #e0e0e0;
+    }
+
+    .input-group label {
+        color: #c0c0c0;
+    }
+
+    .config-section select,
+    .config-section input[type="number"],
+    .config-section input[type="text"],
+    .input-group input[type="number"] {
+        background: #1a1a1a;
+        border-color: #404040;
+        color: #e0e0e0;
+    }
+
+    .config-section select:focus,
+    .config-section input[type="number"]:focus,
+    .config-section input[type="text"]:focus,
+    .input-group input[type="number"]:focus {
+        border-color: var(--color-primary);
+    }
+
+    .advanced-settings-btn {
+        background: #2a2a2a;
+        border-color: #404040;
+        color: #c0c0c0;
+    }
+
+    .advanced-settings-btn:hover {
+        background: #333;
+        border-color: #505050;
+    }
+}

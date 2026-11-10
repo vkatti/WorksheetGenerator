@@ -1,0 +1,55 @@
+/*
+ * Shared color theme: pastel primary colors (blue, green, coral, yellow)
+ * for a friendly "school supplies" look. No pink or purple.
+ */
+:root {
+  /* Pastel surfaces */
+  --color-pastel-blue: #AEE2FF;
+  --color-pastel-green: #C8F4DE;
+  --color-pastel-coral: #FFD1C7;
+  --color-pastel-yellow: #FFF3B0;
+
+  /* Primary (blue) - main interactive color: buttons, focus rings, links */
+  --color-primary: #3B82C4;
+  --color-primary-hover: #2E6FA8;
+  --color-primary-light: var(--color-pastel-blue);
+
+  /* Secondary (green) - positive actions like Print/Generate */
+  --color-secondary: #2F9E65;
+  --color-secondary-hover: #25824F;
+  --color-secondary-light: var(--color-pastel-green);
+
+  /* Accent (coral) - PDF/export action, alerts */
+  --color-accent: #E2603E;
+  --color-accent-hover: #C94E2F;
+  --color-accent-light: var(--color-pastel-coral);
+
+  /* Highlight (yellow) - badges, hover highlights, callouts */
+  --color-highlight: #E8B400;
+  --color-highlight-light: var(--color-pastel-yellow);
+
+  /* Neutral surfaces & text */
+  --color-surface: #ffffff;
+  --color-surface-muted: #f5f8fb;
+  --color-text: #2d3436;
+  --color-text-muted: #5b6b73;
+  --color-border: #dce6ee;
+
+  /* Page background gradient */
+  --color-bg-gradient: linear-gradient(
+    135deg,
+    var(--color-pastel-blue) 0%,
+    var(--color-pastel-green) 50%,
+    var(--color-pastel-yellow) 100%
+  );
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-surface: #242424;
+    --color-surface-muted: #1f1f1f;
+    --color-text: #e8eef2;
+    --color-text-muted: #a8b4ba;
+    --color-border: #3a4752;
+  }
+}

@@ -1,0 +1,129 @@
+.tooltip-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.tooltip-wrapper.tooltip-block {
+    display: flex;
+    width: 100%;
+}
+
+.tooltip-wrapper:focus {
+    outline: none;
+}
+
+.tooltip-bubble {
+    position: absolute;
+    background: var(--color-text);
+    color: var(--color-surface);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+    padding: 8px 12px;
+    border-radius: 8px;
+    white-space: normal;
+    width: max-content;
+    max-width: 220px;
+    text-align: left;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tooltip-bubble::after {
+    content: '';
+    position: absolute;
+    border: 6px solid transparent;
+}
+
+/* Position: top (default) */
+.tooltip-position-top {
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+}
+
+.tooltip-position-top::after {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--color-text);
+}
+
+.tooltip-wrapper:hover .tooltip-position-top,
+.tooltip-wrapper:focus-within .tooltip-position-top,
+.tooltip-wrapper:focus .tooltip-position-top {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Position: bottom */
+.tooltip-position-bottom {
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+}
+
+.tooltip-position-bottom::after {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--color-text);
+}
+
+.tooltip-wrapper:hover .tooltip-position-bottom,
+.tooltip-wrapper:focus-within .tooltip-position-bottom,
+.tooltip-wrapper:focus .tooltip-position-bottom {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Position: right */
+.tooltip-position-right {
+    left: calc(100% + 8px);
+    top: 50%;
+    transform: translateY(-50%) translateX(4px);
+}
+
+.tooltip-position-right::after {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--color-text);
+}
+
+.tooltip-wrapper:hover .tooltip-position-right,
+.tooltip-wrapper:focus-within .tooltip-position-right,
+.tooltip-wrapper:focus .tooltip-position-right {
+    transform: translateY(-50%) translateX(0);
+}
+
+/* Opacity/visibility shared across all positions */
+.tooltip-wrapper:hover .tooltip-bubble,
+.tooltip-wrapper:focus-within .tooltip-bubble,
+.tooltip-wrapper:focus .tooltip-bubble {
+    opacity: 1;
+    visibility: visible;
+}
+
+.tooltip-bubble-wide {
+    max-width: 260px;
+}
+
+.tooltip-position-top.tooltip-bubble-wide {
+    left: 0;
+    transform: translateY(4px);
+}
+
+.tooltip-position-top.tooltip-bubble-wide::after {
+    left: 10px;
+    transform: none;
+}
+
+.tooltip-wrapper:hover .tooltip-position-top.tooltip-bubble-wide,
+.tooltip-wrapper:focus-within .tooltip-position-top.tooltip-bubble-wide,
+.tooltip-wrapper:focus .tooltip-position-top.tooltip-bubble-wide {
+    transform: translateY(0);
+}
