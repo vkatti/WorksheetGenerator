@@ -104,7 +104,7 @@ function practiceCell(p, topAlign) {
         const n = Math.max(String(a).length, String(b).length);
         body = `stacked(${str(a)}, ${str(OPERATOR_SYMBOL[p.type])}, ${str(b)}, ${n})`;
     }
-    return `  [#place(top + left, dx: 1.5mm, dy: 1mm, text(size: 8pt, weight: "bold", fill: luma(110))[#${str(p.number + '.')}])${topAlign ? `#pad(top: 6mm, align(center + top, ${body}))` : `#align(center + horizon, ${body})`}],`;
+    return `  [#place(top + left, dx: 1.5mm, dy: 1mm, text(size: 8pt, weight: "bold", fill: luma(110))[#${str(p.number + '.')}])${topAlign ? `#pad(top: 4mm, align(center + top, ${body}))` : `#align(center + horizon, ${body})`}],`;
 }
 
 function practiceWord(p) {
@@ -122,7 +122,7 @@ function buildPractice(problems, config, math, words, wordsHeading) {
 
     out.push(`
 #let stacked(a, op, b, n) = {
-  set text(size: 22pt, weight: "bold")
+  set text(size: 18pt, weight: "bold")
   set par(leading: 0em, spacing: 0.15em)
   box(width: (n + 1.3) * 0.62em, {
     align(right, a)
@@ -132,9 +132,9 @@ function buildPractice(problems, config, math, words, wordsHeading) {
   })
 }
 #let longdiv(dividend, divisor) = {
-  set text(size: 20pt, weight: "bold")
-  stack(dir: ttb, v(1.2em), grid(columns: (auto, auto), column-gutter: 1.5mm, align: bottom, divisor,
-    box(stroke: (top: 1.6pt, left: 1.6pt), inset: (left: 2mm, top: 0.5mm, rest: 0pt), dividend)))
+  set text(size: 16pt, weight: "bold")
+  move(dx: -3mm, stack(dir: ttb, v(0.7em), grid(columns: (auto, auto), column-gutter: 1.5mm, align: bottom, divisor,
+    box(stroke: (top: 1.6pt, left: 1.6pt), inset: (left: 2mm, top: 0.5mm, rest: 0pt), dividend))))
 }
 
 #align(center, text(size: 28pt, weight: "bold", ${str(title)}))
