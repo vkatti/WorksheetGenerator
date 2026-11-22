@@ -58,7 +58,7 @@ export default function PracticeSheetPage({ config, math, words, wordsHeading })
                                 }}
                             >
                                 {g.items.map((p) => (
-                                    <div key={p.number} className="practice-cell">
+                                    <div key={p.number} className={`practice-cell${g.topAlign ? ' top-aligned' : ''}`}>
                                         <span className="practice-cell-number">{p.number}.</span>
                                         <StackedProblem problem={p} />
                                     </div>

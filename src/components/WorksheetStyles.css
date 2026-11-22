@@ -50,6 +50,15 @@
     box-sizing: border-box;
 }
 
+.practice-cell.top-aligned {
+    align-items: flex-start;
+    padding-top: 22px;
+}
+
+.practice-cell.top-aligned .stacked {
+    margin-top: 0;
+}
+
 .practice-cell-number {
     position: absolute;
     top: 3px;
@@ -95,7 +104,7 @@
     font-weight: 700;
     font-variant-numeric: tabular-nums;
     color: #222;
-    margin-top: 8mm;
+    margin-top: 1.2em; /* one line-height gap for the quotient */
 }
 
 .long-division-dividend {

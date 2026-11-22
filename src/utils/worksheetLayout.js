@@ -30,9 +30,15 @@ function widthUnits(p) {
 
 const isHardType = (p) => p.type === 'multiplication' || p.type === 'division';
 
-// Practice Sheet: add/subtract first, then multiply/divide (they need more vertical room).
+// Practice Sheet order: add/subtract, then all multiplication, then all division
+// (the last two need more vertical room).
 export function sortPracticeProblems(problems) {
-    return [...problems.filter((p) => !isHardType(p)), ...problems.filter(isHardType)];
+    const of = (fn) => problems.filter(fn);
+    return [
+        ...of((p) => !isHardType(p)),
+        ...of((p) => p.type === 'multiplication'),
+        ...of((p) => p.type === 'division'),
+    ];
 }
 
 // Wider numbers -> fewer, wider cells per row.
@@ -59,13 +65,17 @@ function cellHeightFor(items) {
     }, 30);
 }
 
-// Practice Sheet grids: [{ items, columns, cellHeightMm }]; each group is its own grid.
+// Practice Sheet grids: [{ items, columns, cellHeightMm, topAlign }]; each group is its own grid.
+// Multiplication and division cells are top-aligned so students work downwards.
 export function practiceGroups(math) {
-    const easy = math.filter((p) => !isHardType(p) && p.operands);
-    const hard = math.filter((p) => isHardType(p) && p.operands);
-    return [easy, hard]
-        .filter((items) => items.length > 0)
-        .map((items) => ({ items, columns: columnsFor(items), cellHeightMm: cellHeightFor(items) }));
+    const ok = math.filter((p) => p.operands);
+    return [
+        { items: ok.filter((p) => !isHardType(p)), topAlign: false },
+        { items: ok.filter((p) => p.type === 'multiplication'), topAlign: true },
+        { items: ok.filter((p) => p.type === 'division'), topAlign: true },
+    ]
+        .filter((g) => g.items.length > 0)
+        .map((g) => ({ ...g, columns: columnsFor(g.items), cellHeightMm: cellHeightFor(g.items) }));
 }
 
 export function sectionMarks(problems, config) {

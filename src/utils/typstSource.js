@@ -77,7 +77,7 @@ function answerKey(problems, math, words, wordsHeading, both) {
 
 // ---------- Practice Sheet ----------
 
-function practiceCell(p) {
+function practiceCell(p, topAlign) {
     const [a, b] = p.operands;
     let body;
     if (p.type === 'division') {
@@ -86,7 +86,7 @@ function practiceCell(p) {
         const n = Math.max(String(a).length, String(b).length);
         body = `stacked(${str(a)}, ${str(OPERATOR_SYMBOL[p.type])}, ${str(b)}, ${n})`;
     }
-    return `  [#place(top + left, dx: 1.5mm, dy: 1mm, text(size: 8pt, weight: "bold", fill: luma(110))[#${str(p.number + '.')}])#align(center + horizon, ${body})],`;
+    return `  [#place(top + left, dx: 1.5mm, dy: 1mm, text(size: 8pt, weight: "bold", fill: luma(110))[#${str(p.number + '.')}])${topAlign ? `#pad(top: 6mm, align(center + top, ${body}))` : `#align(center + horizon, ${body})`}],`;
 }
 
 function practiceWord(p) {
@@ -116,7 +116,7 @@ function buildPractice(problems, config, math, words, wordsHeading) {
 }
 #let longdiv(dividend, divisor) = {
   set text(size: 20pt, weight: "bold")
-  stack(dir: ttb, v(7mm), grid(columns: (auto, auto), column-gutter: 1.5mm, align: bottom, divisor,
+  stack(dir: ttb, v(1.2em), grid(columns: (auto, auto), column-gutter: 1.5mm, align: bottom, divisor,
     box(stroke: (top: 1.6pt, left: 1.6pt), inset: (left: 2mm, top: 0.5mm, rest: 0pt), dividend)))
 }
 
@@ -131,7 +131,7 @@ ${metaRow}
     if (math.length > 0) {
         if (both) out.push(`#heading-section(${str('Section A: Number Problems')})`);
         for (const g of practiceGroups(math)) {
-            const cells = g.items.map(practiceCell);
+            const cells = g.items.map((p) => practiceCell(p, g.topAlign));
             // pad the last row so every cell keeps its border
             while (cells.length % g.columns !== 0) cells.push('  [],');
             out.push(
