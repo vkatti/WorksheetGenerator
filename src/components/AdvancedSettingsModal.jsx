@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import './AdvancedSettingsModal.css';
 import Tooltip from './Tooltip';
 import InfoIcon from './InfoIcon';
+import { STYLE_PAPER } from '../utils/worksheetLayout';
 import { MultiplicandDiagram, MultiplierDiagram, DivisorDiagram } from './MathTermDiagram';
 
 export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply }) {
@@ -20,6 +21,10 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                 divisorDigits: config.divisorDigits,
                 wordProblemCount: config.wordProblemCount,
                 currency: config.currency,
+                marksNumber: config.marksNumber,
+                marksWord: config.marksWord,
+                timeAllowed: config.timeAllowed,
+                paperInstructions: config.paperInstructions,
             });
         }
     }, [isOpen, config]);
@@ -214,6 +219,63 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                                 <span className="modal-input-hint">
                                     Used in any word problems involving money.
                                 </span>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Question Paper Settings */}
+                    {config.worksheetStyle === STYLE_PAPER && (
+                        <div className="modal-section">
+                            <h3>📋 Question Paper Settings</h3>
+
+                            <div className="modal-input-group">
+                                <label htmlFor="modal-marksNumber">Marks per Number Problem (Section A)</label>
+                                <input
+                                    id="modal-marksNumber"
+                                    type="number"
+                                    min="1"
+                                    max="20"
+                                    value={tempConfig.marksNumber}
+                                    onChange={(e) => handleTempChange('marksNumber', parseInt(e.target.value) || 1)}
+                                />
+                            </div>
+
+                            {config.includeWordProblems && (
+                                <div className="modal-input-group">
+                                    <label htmlFor="modal-marksWord">Marks per Word Problem (Section B)</label>
+                                    <input
+                                        id="modal-marksWord"
+                                        type="number"
+                                        min="1"
+                                        max="20"
+                                        value={tempConfig.marksWord}
+                                        onChange={(e) => handleTempChange('marksWord', parseInt(e.target.value) || 1)}
+                                    />
+                                </div>
+                            )}
+
+                            <div className="modal-input-group">
+                                <label htmlFor="modal-timeAllowed">Time Allowed (optional)</label>
+                                <input
+                                    id="modal-timeAllowed"
+                                    type="text"
+                                    maxLength="30"
+                                    placeholder="e.g. 30 minutes"
+                                    value={tempConfig.timeAllowed}
+                                    onChange={(e) => handleTempChange('timeAllowed', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="modal-input-group">
+                                <label htmlFor="modal-paperInstructions">General Instructions</label>
+                                <textarea
+                                    id="modal-paperInstructions"
+                                    rows="3"
+                                    maxLength="400"
+                                    value={tempConfig.paperInstructions}
+                                    onChange={(e) => handleTempChange('paperInstructions', e.target.value)}
+                                />
+                                <span className="modal-input-hint">One instruction per line.</span>
                             </div>
                         </div>
                     )}

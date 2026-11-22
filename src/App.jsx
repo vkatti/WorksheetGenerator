@@ -7,6 +7,7 @@ import Tooltip from './components/Tooltip';
 import InfoModal from './components/InfoModal';
 import { PrivacyPolicyContent, TermsOfUseContent, FAQContent } from './content/legalContent';
 import { generateProblems } from './utils/problemGenerators';
+import { DEFAULT_PAPER_INSTRUCTIONS, STYLE_PRACTICE } from './utils/worksheetLayout';
 import { exportToPDF, printWorksheet, prefetchPdfEngine } from './utils/typstExporter';
 
 function App() {
@@ -22,7 +23,13 @@ function App() {
     wordProblemCount: 5,
     currency: '$',
     worksheetTitle: 'Worksheet',
-    includeAnswerKey: true
+    includeAnswerKey: true,
+    worksheetStyle: STYLE_PRACTICE, // 'practice' | 'paper'
+    // Question Paper options
+    marksNumber: 1,
+    marksWord: 2,
+    timeAllowed: '',
+    paperInstructions: DEFAULT_PAPER_INSTRUCTIONS
   });
 
   const [problems, setProblems] = useState([]);

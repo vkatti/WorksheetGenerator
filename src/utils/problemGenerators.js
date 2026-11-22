@@ -15,6 +15,7 @@ export function generateAddition(config) {
     const b = randomWithDigits(addendDigits);
     return {
         type: 'addition',
+        operands: [a, b],
         question: `${a} + ${b} = ____`,
         answer: a + b
     };
@@ -31,6 +32,7 @@ export function generateSubtraction(config) {
 
     return {
         type: 'subtraction',
+        operands: [a, b],
         question: `${a} - ${b} = ____`,
         answer: a - b
     };
@@ -43,6 +45,7 @@ export function generateMultiplication(config) {
     const b = randomWithDigits(multiplierDigits);
     return {
         type: 'multiplication',
+        operands: [a, b],
         question: `${a} × ${b} = ____`,
         answer: a * b
     };
@@ -57,6 +60,7 @@ export function generateDivision(config) {
 
     return {
         type: 'division',
+        operands: [dividend, divisor],
         question: `${dividend} ÷ ${divisor} = ____`,
         answer: quotient
     };
@@ -172,6 +176,8 @@ export function generateWordProblem(config) {
 }
 
 // Main Generator Function
+import { STYLE_PRACTICE, sortPracticeProblems } from './worksheetLayout.js';
+
 export function generateProblems(config) {
     const { problemTypes, questionCount, includeWordProblems, wordProblemCount } = config;
     const problems = [];
@@ -188,11 +194,14 @@ export function generateProblems(config) {
     }
 
     // Generate regular math problems
+    let mathProblems = [];
     for (let i = 0; i < mathProblemCount; i++) {
         const type = problemTypes[Math.floor(Math.random() * problemTypes.length)];
-        const problem = generateProblemByType(type, config);
-        problems.push({ ...problem, number: i + 1 });
+        mathProblems.push(generateProblemByType(type, config));
     }
+    // Practice Sheet: add/subtract first, multiply/divide after (they need more room)
+    if (config.worksheetStyle === STYLE_PRACTICE) mathProblems = sortPracticeProblems(mathProblems);
+    mathProblems.forEach((problem, i) => problems.push({ ...problem, number: i + 1 }));
 
     // Generate word problems if enabled (included in total count)
     if (includeWordProblems && actualWordProblemCount > 0) {
