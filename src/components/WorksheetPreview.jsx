@@ -2,7 +2,7 @@ import './WorksheetPreview.css';
 import './WorksheetStyles.css';
 import PracticeSheetPage from './PracticeSheetPage';
 import QuestionPaperPage from './QuestionPaperPage';
-import { STYLE_PAPER } from '../utils/worksheetLayout';
+import { STYLE_PAPER, answerColumns } from '../utils/worksheetLayout';
 
 export default function WorksheetPreview({ problems, config }) {
     if (!problems || problems.length === 0) {
@@ -60,11 +60,15 @@ export default function WorksheetPreview({ problems, config }) {
                     {answerSections.map((sec) => (
                         <div key={sec.title || 'math'}>
                             {sec.title && <h3 className="section-title">{sec.title}</h3>}
-                            <div className="answers-grid">
-                                {sec.items.map((problem) => (
-                                    <div key={problem.number} className="answer-item">
-                                        <span className="answer-number">{problem.number}.</span>
-                                        <span className="answer-value">{problem.answer}</span>
+                            <div className="answers-columns">
+                                {answerColumns(sec.items).map((col, ci) => (
+                                    <div key={ci} className="answers-column">
+                                        {col.map((problem) => (
+                                            <div key={problem.number} className="answer-item">
+                                                <span className="answer-number">{problem.number}.</span>
+                                                <span className="answer-value">{problem.answer}</span>
+                                            </div>
+                                        ))}
                                     </div>
                                 ))}
                             </div>

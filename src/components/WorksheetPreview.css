@@ -201,6 +201,20 @@
     color: #666;
 }
 
+.answers-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 40px;
+    align-items: flex-start;
+}
+
+.answers-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 90px;
+}
+
 .answers-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

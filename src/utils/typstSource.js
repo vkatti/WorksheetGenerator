@@ -6,6 +6,7 @@ import {
     paperQuestion,
     practiceGroups,
     sectionMarks,
+    answerColumns,
     instructionLines,
 } from './worksheetLayout.js';
 
@@ -75,8 +76,12 @@ function answerKey(problems, math, words, wordsHeading, both) {
     out.push(`#align(center, text(size: 22pt, weight: "bold")[Answer Key])`);
     out.push(`#align(center, text(size: 10pt, fill: luma(100))[#${str(problems.length + ' Questions')}])`);
     out.push('#v(2mm)#line(length: 100%, stroke: 1pt + luma(60))');
-    const grid = (items) =>
-        `#grid(columns: (1fr,) * 4, row-gutter: 3mm, column-gutter: 4mm,\n${items.map((p) => `  [${answerItem(p)}],`).join('\n')}\n)`;
+    const grid = (items) => {
+        const cols = answerColumns(items);
+        return `#block(breakable: false)[#grid(columns: (auto,) * ${cols.length}, column-gutter: 14mm,\n${cols
+            .map((col) => `  stack(dir: ttb, spacing: 2mm, ${col.map((p) => answerItem(p).replace(/^#/, '')).join(', ')}),`)
+            .join('\n')}\n)]`;
+    };
     if (math.length > 0) {
         if (both) out.push(`#heading-section(${str('Section A: Number Problems')})`);
         out.push(grid(math));

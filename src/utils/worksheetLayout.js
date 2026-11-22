@@ -99,3 +99,22 @@ export const instructionLines = (config) =>
         .split('\n')
         .map((l) => l.trim())
         .filter(Boolean);
+
+// Answer key: answers run down the page in columns of at most 25 (and, when there are
+// enough answers, at least 5). Items are split as evenly as possible across columns.
+export const ANSWER_COLUMN_MAX = 25;
+export const ANSWER_COLUMN_MIN = 5;
+
+export function answerColumns(items) {
+    if (items.length === 0) return [];
+    const cols = Math.ceil(items.length / ANSWER_COLUMN_MAX);
+    const per = Math.ceil(items.length / cols);
+    const out = [];
+    for (let i = 0; i < items.length; i += per) out.push(items.slice(i, i + per));
+    // A short trailing column (< min) is merged back into the previous one if it still fits.
+    const last = out[out.length - 1];
+    if (out.length > 1 && last.length < ANSWER_COLUMN_MIN && out[out.length - 2].length + last.length <= ANSWER_COLUMN_MAX) {
+        out.splice(out.length - 2, 2, [...out[out.length - 2], ...last]);
+    }
+    return out;
+}
