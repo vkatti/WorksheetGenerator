@@ -52,7 +52,7 @@
 
 .practice-cell.top-aligned {
     align-items: flex-start;
-    padding-top: 22px;
+    padding-top: 16px;
 }
 
 .practice-cell.top-aligned .stacked {
@@ -74,7 +74,7 @@
     flex-direction: column;
     align-items: stretch;
     font-family: 'Comic Sans MS', 'Chalkboard SE', 'Trebuchet MS', sans-serif;
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
     line-height: 1.15;
@@ -100,11 +100,12 @@
     align-items: flex-end;
     gap: 6px;
     font-family: 'Comic Sans MS', 'Chalkboard SE', 'Trebuchet MS', sans-serif;
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
     color: #222;
-    margin-top: 1.2em; /* one line-height gap for the quotient */
+    margin-top: 0.7em; /* gap for the quotient */
+    transform: translateX(-12px);
 }
 
 .long-division-dividend {
@@ -272,11 +273,11 @@
     }
 
     .stacked {
-        font-size: 22px;
+        font-size: 19px;
     }
 
     .long-division {
-        font-size: 20px;
+        font-size: 17px;
     }
 
     .paper-grid {
