@@ -21,7 +21,21 @@ const marksLabel = (n) => `${n} ${n === 1 ? 'mark' : 'marks'}`;
 
 function prelude(title, { frame = false } = {}) {
     const background = frame
-        ? `  background: place(top + left, dx: 7mm, dy: 7mm, rect(width: 100% - 14mm, height: 100% - 14mm, radius: 4mm, stroke: 1.5pt + luma(60))),\n`
+        ? `  background: {
+    place(top + left, dx: 7mm, dy: 7mm, rect(width: 100% - 14mm, height: 100% - 14mm, radius: 4mm, stroke: 1.5pt + luma(60)))
+    // Word problems: vertical rule + "WORKING AREA" label, repeated on every page that has them
+    context {
+      let pg = here().page()
+      let starts = query(<wp-s>).filter(m => m.location().page() == pg)
+      let ends = query(<wp-e>).filter(m => m.location().page() == pg)
+      if starts.len() > 0 and ends.len() > 0 {
+        let y0 = starts.map(m => m.location().position().y).fold(10000pt, calc.min)
+        let y1 = ends.map(m => m.location().position().y).fold(0pt, calc.max)
+        place(top + left, dx: 150mm, dy: y0 - 1mm, line(angle: 90deg, length: y1 - y0 + 3mm, stroke: 1pt + luma(60)))
+        place(top + left, dx: 153mm, dy: y0, text(size: 7pt, weight: "bold", fill: luma(140))[WORKING AREA])
+      }
+    }
+  },\n`
         : '';
     return `
 #set document(title: ${str(title)})
@@ -90,12 +104,11 @@ function practiceCell(p, topAlign) {
 }
 
 function practiceWord(p) {
-    return `#block(breakable: false, below: 4mm)[#grid(columns: (3fr, 1fr), column-gutter: 3mm,
-  [#grid(columns: (9mm, 1fr), column-gutter: 1mm, text(weight: "bold")[#${str(p.number + '.')}], text(size: 12pt)[#${str(p.question)}])
-   #v(2mm)
-   #pad(left: 10mm, rect(width: 55mm, height: 10mm, radius: 2mm, stroke: 1pt + luma(60), inset: 2mm, text(size: 9pt, fill: luma(120))[Answer:]))],
-  rect(width: 100%, height: 34mm, radius: 2mm, stroke: 0.8pt + luma(60), inset: 2mm, text(size: 7pt, weight: "bold", fill: luma(140))[WORKING AREA]),
-)]`;
+    return `#block(breakable: false, below: 5mm, width: 131mm)[#metadata(none) <wp-s>
+#grid(columns: (9mm, 1fr), column-gutter: 1mm, text(weight: "bold")[#${str(p.number + '.')}], text(size: 12pt)[#${str(p.question)}])
+#v(2mm)
+#pad(left: 10mm, rect(width: 55mm, height: 10mm, radius: 2mm, stroke: 1pt + luma(60), inset: 2mm, text(size: 9pt, fill: luma(120))[Answer:]))
+#metadata(none) <wp-e>]`;
 }
 
 function buildPractice(problems, config, math, words, wordsHeading) {

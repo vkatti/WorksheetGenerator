@@ -114,35 +114,41 @@
     padding: 2px 8px 0 8px;
 }
 
-/* Word problems in the Practice Sheet: 75% problem + answer box, 25% working area */
+/* Word problems in the Practice Sheet: 75% problems, vertical rule, 25% open Working Area */
 .practice-words {
+    position: relative;
+    padding-right: 25%;
+}
+
+.practice-words-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
+    padding-right: 14px;
 }
 
 .practice-word {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    gap: 10px;
     page-break-inside: avoid;
 }
 
-.practice-word-main .word-problem {
+.practice-word .word-problem {
     max-width: none;
     font-size: 16px;
     line-height: 1.45;
 }
 
-.working-area-box {
-    min-height: 34mm;
-    border: 1.5px solid #333;
-    border-radius: 6px;
-    padding: 3px 6px;
+.working-area-column {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 25%;
     box-sizing: border-box;
+    border-left: 2px solid #333;
+    padding-left: 8px;
 }
 
-.working-area-box span {
+.working-area-column span {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.4px;

@@ -72,18 +72,20 @@ export default function PracticeSheetPage({ config, math, words, wordsHeading })
                     <>
                         <h3 className="section-title">{wordsHeading}</h3>
                         <div className="practice-words">
-                            {words.map((p) => (
-                                <div key={p.number} className="practice-word">
-                                    <div className="practice-word-main">
+                            <div className="practice-words-list">
+                                {words.map((p) => (
+                                    <div key={p.number} className="practice-word">
                                         <div className="problem-item">
                                             <span className="problem-number">{p.number}.</span>
                                             <p className="word-problem">{p.question}</p>
                                         </div>
                                         <div className="word-answer-box"><span>Answer:</span></div>
                                     </div>
-                                    <div className="working-area-box"><span>Working Area</span></div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
+                            <div className="working-area-column">
+                                <span>Working Area</span>
+                            </div>
                         </div>
                     </>
                 )}
