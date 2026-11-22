@@ -4,7 +4,7 @@ export const STYLE_PRACTICE = 'practice';
 export const STYLE_PAPER = 'paper';
 
 export const DEFAULT_PAPER_INSTRUCTIONS =
-    'Answer all questions.\nShow all your working on the separate working sheet.';
+    'Answer all questions.\nShow all your working on a separate sheet.';
 
 export const OPERATOR_SYMBOL = {
     addition: '+',
@@ -99,6 +99,3 @@ export const instructionLines = (config) =>
         .split('\n')
         .map((l) => l.trim())
         .filter(Boolean);
-
-// One working-sheet page per ~15 questions.
-export const workingSheetPageCount = (problems) => Math.max(1, Math.ceil(problems.length / 15));

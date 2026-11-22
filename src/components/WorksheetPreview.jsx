@@ -1,7 +1,7 @@
 import './WorksheetPreview.css';
 import './WorksheetStyles.css';
 import PracticeSheetPage from './PracticeSheetPage';
-import QuestionPaperPage, { WorkingSheets } from './QuestionPaperPage';
+import QuestionPaperPage from './QuestionPaperPage';
 import { STYLE_PAPER } from '../utils/worksheetLayout';
 
 export default function WorksheetPreview({ problems, config }) {
@@ -22,7 +22,7 @@ export default function WorksheetPreview({ problems, config }) {
     const wordsHeading = regularProblems.length > 0 ? 'Section B: Word Problems' : 'Word Problems';
 
     // The preview is one continuous sheet; the downloaded PDF (Typst) does the
-    // real pagination. Only the Answer Key (and Working Sheets) are separate sheets.
+    // real pagination. Only the Answer Key is a separate sheet.
     const answerSections = [
         { items: regularProblems, title: wordProblems.length > 0 ? 'Section A: Number Problems' : null },
         { items: wordProblems, title: wordsHeading }
@@ -47,8 +47,6 @@ export default function WorksheetPreview({ problems, config }) {
                     wordsHeading={wordsHeading}
                 />
             )}
-
-            {isPaper && <WorkingSheets problems={problems} config={config} />}
 
             {/* Answer Key */}
             {config.includeAnswerKey && (

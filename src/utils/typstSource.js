@@ -7,7 +7,6 @@ import {
     practiceGroups,
     sectionMarks,
     instructionLines,
-    workingSheetPageCount,
 } from './worksheetLayout.js';
 
 export const FONT_FAMILY = 'Noto Sans';
@@ -105,9 +104,9 @@ function practiceCell(p, topAlign) {
 
 function practiceWord(p) {
     return `#block(breakable: false, below: 5mm, width: 131mm)[#metadata(none) <wp-s>
-#grid(columns: (9mm, 1fr), column-gutter: 1mm, text(weight: "bold")[#${str(p.number + '.')}], text(size: 12pt)[#${str(p.question)}])
+#grid(columns: (11mm, 1fr), column-gutter: 1mm, text(weight: "bold")[#${str(p.number + '.')}], text(size: 12pt)[#${str(p.question)}])
 #v(2mm)
-#pad(left: 10mm, rect(width: 55mm, height: 10mm, radius: 2mm, stroke: 1pt + luma(60), inset: 2mm, text(size: 9pt, fill: luma(120))[Answer:]))
+#pad(left: 12mm, rect(width: 55mm, height: 10mm, radius: 2mm, stroke: 1pt + luma(60), inset: 2mm, text(size: 9pt, fill: luma(120))[Answer:]))
 #metadata(none) <wp-e>]`;
 }
 
@@ -166,25 +165,6 @@ function paperQuestionBlock(p, marks, size) {
     return `pq(${str(p.number + '.')}, ${str(paperQuestion(p))}, ${str('[' + marks + ']')}, ${size}pt)`;
 }
 
-function workingSheet(config, index, count) {
-    const label = count > 1 ? `Working Sheet (${index + 1} of ${count})` : 'Working Sheet';
-    const area =
-        config.workingSheet === 'grid'
-            ? `#box(width: 180mm, height: 215mm, {
-  for i in range(0, 37) { place(top + left, dx: i * 5mm, line(angle: 90deg, length: 215mm, stroke: 0.3pt + luma(190))) }
-  for j in range(0, 44) { place(top + left, dy: j * 5mm, line(length: 180mm, stroke: 0.3pt + luma(190))) }
-})`
-            : `#stack(dir: ttb, spacing: 9mm, ..range(24).map(_ => line(length: 100%, stroke: 0.4pt + luma(170))))`;
-    return [
-        '#pagebreak()',
-        `#text(size: 18pt, weight: "bold")[#${str(label)}]`,
-        '#v(1mm)',
-        `#grid(columns: (3fr, 2fr), column-gutter: 8mm, meta-field("Name:", 100%), meta-field("Date:", 100%))`,
-        '#v(2mm)#line(length: 100%, stroke: 1pt + luma(60))#v(4mm)',
-        area,
-    ];
-}
-
 function buildPaper(problems, config, math, words, wordsHeading) {
     const both = math.length > 0 && words.length > 0;
     const title = config.worksheetTitle || 'Worksheet';
@@ -192,7 +172,7 @@ function buildPaper(problems, config, math, words, wordsHeading) {
     const out = [prelude(title)];
 
     out.push(`
-#let pq(n, q, marks, size) = block(breakable: false, grid(columns: (9mm, 1fr, auto), column-gutter: 1mm,
+#let pq(n, q, marks, size) = block(breakable: false, grid(columns: (11mm, 1fr, auto), column-gutter: 1mm,
   text(weight: "bold", size: 12pt, n), text(size: size, q), text(size: 9pt, fill: luma(90), marks)))
 
 #align(center, text(size: 24pt, weight: "bold", ${str(title)}))
@@ -225,10 +205,6 @@ ${config.timeAllowed?.trim()
         out.push(words.map((p) => '#block(below: 5mm, ' + paperQuestionBlock(p, m.marksB, 12) + ')').join('\n'));
     }
 
-    if (config.workingSheet !== 'none') {
-        const count = workingSheetPageCount(problems);
-        for (let i = 0; i < count; i++) out.push(...workingSheet(config, i, count));
-    }
     return out;
 }
 

@@ -25,7 +25,6 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                 marksWord: config.marksWord,
                 timeAllowed: config.timeAllowed,
                 paperInstructions: config.paperInstructions,
-                workingSheet: config.workingSheet,
             });
         }
     }, [isOpen, config]);
@@ -277,22 +276,6 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                                     onChange={(e) => handleTempChange('paperInstructions', e.target.value)}
                                 />
                                 <span className="modal-input-hint">One instruction per line.</span>
-                            </div>
-
-                            <div className="modal-input-group">
-                                <label htmlFor="modal-workingSheet">Working Sheet</label>
-                                <select
-                                    id="modal-workingSheet"
-                                    value={tempConfig.workingSheet}
-                                    onChange={(e) => handleTempChange('workingSheet', e.target.value)}
-                                >
-                                    <option value="ruled">Ruled pages</option>
-                                    <option value="grid">Square-grid pages</option>
-                                    <option value="none">None</option>
-                                </select>
-                                <span className="modal-input-hint">
-                                    Blank pages for students to show their working (about one per 15 questions).
-                                </span>
                             </div>
                         </div>
                     )}

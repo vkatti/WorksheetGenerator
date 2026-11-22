@@ -1,4 +1,4 @@
-import { paperQuestion, sectionMarks, instructionLines, workingSheetPageCount } from '../utils/worksheetLayout';
+import { paperQuestion, sectionMarks, instructionLines } from '../utils/worksheetLayout';
 
 const marksLabel = (n) => `${n} ${n === 1 ? 'mark' : 'marks'}`;
 
@@ -12,29 +12,6 @@ function PaperQuestion({ problem, marks }) {
             <span className="paper-q-marks">[{marks}]</span>
         </div>
     );
-}
-
-export function WorkingSheets({ problems, config }) {
-    if (config.workingSheet === 'none') return null;
-    const count = workingSheetPageCount(problems);
-    return Array.from({ length: count }, (_, i) => (
-        <div key={`work-${i}`} className="worksheet-page working-page">
-            <div className="working-header">
-                <h2>Working Sheet{count > 1 ? ` (${i + 1} of ${count})` : ''}</h2>
-                <div className="worksheet-meta-line">
-                    <span className="meta-field meta-field-name">
-                        <span className="meta-label">Name:</span>
-                        <span className="meta-blank"></span>
-                    </span>
-                    <span className="meta-field meta-field-date">
-                        <span className="meta-label">Date:</span>
-                        <span className="meta-blank"></span>
-                    </span>
-                </div>
-            </div>
-            <div className={`working-area ${config.workingSheet === 'grid' ? 'is-grid' : 'is-ruled'}`}></div>
-        </div>
-    ));
 }
 
 export default function QuestionPaperPage({ problems, config, math, words, wordsHeading }) {

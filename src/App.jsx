@@ -29,8 +29,7 @@ function App() {
     marksNumber: 1,
     marksWord: 2,
     timeAllowed: '',
-    paperInstructions: DEFAULT_PAPER_INSTRUCTIONS,
-    workingSheet: 'ruled' // 'none' | 'ruled' | 'grid'
+    paperInstructions: DEFAULT_PAPER_INSTRUCTIONS
   });
 
   const [problems, setProblems] = useState([]);

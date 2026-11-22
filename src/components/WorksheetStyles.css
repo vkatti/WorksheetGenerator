@@ -131,6 +131,10 @@
     page-break-inside: avoid;
 }
 
+.practice-word .problem-number {
+    min-width: 40px;
+}
+
 .practice-word .word-problem {
     max-width: none;
     font-size: 16px;
@@ -157,10 +161,10 @@
 }
 
 .word-answer-box {
-    margin: 6px 0 0 36px;
+    margin: 6px 0 0 48px;
     height: 10mm;
     width: 60mm;
-    max-width: calc(100% - 36px);
+    max-width: calc(100% - 48px);
     border: 2px solid #333;
     border-radius: 6px;
     padding: 3px 8px;
@@ -232,7 +236,7 @@
 
 .paper-question {
     display: grid;
-    grid-template-columns: 28px 1fr auto;
+    grid-template-columns: 40px 1fr auto;
     gap: 4px;
     align-items: baseline;
     page-break-inside: avoid;
@@ -260,41 +264,6 @@
     color: #555;
     white-space: nowrap;
     padding-left: 8px;
-}
-
-/* Working sheet pages */
-.working-header {
-    border-bottom: 2px solid #333;
-    padding-bottom: 8px;
-    margin-bottom: 8px;
-}
-
-.working-header h2 {
-    margin: 0 0 8px;
-    font-size: 22px;
-    color: #333;
-}
-
-.working-area {
-    flex: 1;
-    min-height: 200mm;
-}
-
-.working-area.is-ruled {
-    background-image: repeating-linear-gradient(
-        to bottom,
-        transparent 0,
-        transparent calc(9mm - 1px),
-        #b5b5b5 calc(9mm - 1px),
-        #b5b5b5 9mm
-    );
-}
-
-.working-area.is-grid {
-    background-image:
-        linear-gradient(to right, #cfcfcf 1px, transparent 1px),
-        linear-gradient(to bottom, #cfcfcf 1px, transparent 1px);
-    background-size: 5mm 5mm;
 }
 
 @media (max-width: 768px) {
