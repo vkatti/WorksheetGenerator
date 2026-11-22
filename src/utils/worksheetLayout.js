@@ -28,24 +28,44 @@ function widthUnits(p) {
     return Math.max(String(a).length, String(b).length) + 2;
 }
 
-// Practice Sheet: wider numbers -> fewer, wider cells per row.
-export function practiceColumns(problems) {
-    const math = problems.filter((p) => !p.isWordProblem && p.operands);
-    const widest = math.reduce((m, p) => Math.max(m, widthUnits(p)), 0);
+const isHardType = (p) => p.type === 'multiplication' || p.type === 'division';
+
+// Practice Sheet: add/subtract first, then multiply/divide (they need more vertical room).
+export function sortPracticeProblems(problems) {
+    return [...problems.filter((p) => !isHardType(p)), ...problems.filter(isHardType)];
+}
+
+// Wider numbers -> fewer, wider cells per row.
+function columnsFor(items) {
+    const widest = items.reduce((m, p) => Math.max(m, widthUnits(p)), 0);
     if (widest <= 4) return 5;
     if (widest <= 6) return 4;
     if (widest <= 8) return 3;
     return 2;
 }
 
-// Practice Sheet: more digits -> more room to carry / borrow.
-export function practiceCellHeightMm(problems) {
-    const math = problems.filter((p) => !p.isWordProblem && p.operands);
-    const maxDigits = math.reduce(
-        (m, p) => Math.max(m, ...p.operands.map((n) => String(n).length)),
-        1
-    );
-    return 30 + Math.max(0, maxDigits - 2) * 4;
+// Cell height (mm). More digits -> more room to carry / borrow; multi-digit multipliers
+// need partial-product rows; division needs room for the working under the bracket.
+function cellHeightFor(items) {
+    return items.reduce((h, p) => {
+        const [a, b] = p.operands;
+        const digits = Math.max(String(a).length, String(b).length);
+        if (p.type === 'division') return Math.max(h, 44 + Math.max(0, String(a).length - 3) * 4);
+        if (p.type === 'multiplication') {
+            const partials = String(b).length > 1 ? (String(b).length + 1) * 9 : 0;
+            return Math.max(h, 36 + partials);
+        }
+        return Math.max(h, 30 + Math.max(0, digits - 2) * 4);
+    }, 30);
+}
+
+// Practice Sheet grids: [{ items, columns, cellHeightMm }]; each group is its own grid.
+export function practiceGroups(math) {
+    const easy = math.filter((p) => !isHardType(p) && p.operands);
+    const hard = math.filter((p) => isHardType(p) && p.operands);
+    return [easy, hard]
+        .filter((items) => items.length > 0)
+        .map((items) => ({ items, columns: columnsFor(items), cellHeightMm: cellHeightFor(items) }));
 }
 
 export function sectionMarks(problems, config) {

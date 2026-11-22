@@ -4,8 +4,7 @@ import {
     STYLE_PAPER,
     OPERATOR_SYMBOL,
     paperQuestion,
-    practiceColumns,
-    practiceCellHeightMm,
+    practiceGroups,
     sectionMarks,
     instructionLines,
     workingSheetPageCount,
@@ -90,12 +89,13 @@ function practiceCell(p) {
     return `  [#place(top + left, dx: 1.5mm, dy: 1mm, text(size: 8pt, weight: "bold", fill: luma(110))[#${str(p.number + '.')}])#align(center + horizon, ${body})],`;
 }
 
-function practiceWord(p, area) {
-    const answer =
-        area === 'box'
-            ? `#pad(left: 10mm, rect(width: 70mm, height: 12mm, radius: 2mm, stroke: 1pt + luma(60), inset: 2mm, text(size: 9pt, fill: luma(120))[Answer:]))`
-            : `#pad(left: 10mm)[#v(7mm)#line(length: 100%, stroke: 0.5pt + luma(150))#v(7mm)#line(length: 100%, stroke: 0.5pt + luma(150))]`;
-    return `#block(breakable: false, below: 6mm)[#grid(columns: (9mm, 1fr), column-gutter: 1mm, text(weight: "bold")[#${str(p.number + '.')}], text(size: 12pt)[#${str(p.question)}])\n${answer}]`;
+function practiceWord(p) {
+    return `#block(breakable: false, below: 4mm)[#grid(columns: (3fr, 1fr), column-gutter: 3mm,
+  [#grid(columns: (9mm, 1fr), column-gutter: 1mm, text(weight: "bold")[#${str(p.number + '.')}], text(size: 12pt)[#${str(p.question)}])
+   #v(2mm)
+   #pad(left: 10mm, rect(width: 55mm, height: 10mm, radius: 2mm, stroke: 1pt + luma(60), inset: 2mm, text(size: 9pt, fill: luma(120))[Answer:]))],
+  rect(width: 100%, height: 34mm, radius: 2mm, stroke: 0.8pt + luma(60), inset: 2mm, text(size: 7pt, weight: "bold", fill: luma(140))[WORKING AREA]),
+)]`;
 }
 
 function buildPractice(problems, config, math, words, wordsHeading) {
@@ -130,17 +130,19 @@ ${metaRow}
 
     if (math.length > 0) {
         if (both) out.push(`#heading-section(${str('Section A: Number Problems')})`);
-        const cols = practiceColumns(math);
-        const cells = math.map(practiceCell);
-        // pad the last row so every cell keeps its border
-        while (cells.length % cols !== 0) cells.push('  [],');
-        out.push(
-            `#grid(columns: (1fr,) * ${cols}, rows: (${practiceCellHeightMm(math)}mm,), stroke: 0.8pt + luma(60),\n${cells.join('\n')}\n)`
-        );
+        for (const g of practiceGroups(math)) {
+            const cells = g.items.map(practiceCell);
+            // pad the last row so every cell keeps its border
+            while (cells.length % g.columns !== 0) cells.push('  [],');
+            out.push(
+                `#grid(columns: (1fr,) * ${g.columns}, rows: (${g.cellHeightMm}mm,), stroke: 0.8pt + luma(60),\n${cells.join('\n')}\n)`
+            );
+            out.push('#v(3mm)');
+        }
     }
     if (words.length > 0) {
         out.push(`#heading-section(${str(wordsHeading)})`);
-        out.push(words.map((p) => practiceWord(p, config.wordAnswerArea)).join('\n'));
+        out.push(words.map((p) => practiceWord(p)).join('\n'));
     }
     return out;
 }

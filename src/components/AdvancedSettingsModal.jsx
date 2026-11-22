@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import './AdvancedSettingsModal.css';
 import Tooltip from './Tooltip';
 import InfoIcon from './InfoIcon';
-import { STYLE_PAPER, STYLE_PRACTICE } from '../utils/worksheetLayout';
+import { STYLE_PAPER } from '../utils/worksheetLayout';
 import { MultiplicandDiagram, MultiplierDiagram, DivisorDiagram } from './MathTermDiagram';
 
 export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply }) {
@@ -21,7 +21,6 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                 divisorDigits: config.divisorDigits,
                 wordProblemCount: config.wordProblemCount,
                 currency: config.currency,
-                wordAnswerArea: config.wordAnswerArea,
                 marksNumber: config.marksNumber,
                 marksWord: config.marksWord,
                 timeAllowed: config.timeAllowed,
@@ -220,27 +219,6 @@ export default function AdvancedSettingsModal({ isOpen, onClose, config, onApply
                                 </select>
                                 <span className="modal-input-hint">
                                     Used in any word problems involving money.
-                                </span>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Practice Sheet Settings */}
-                    {config.worksheetStyle === STYLE_PRACTICE && config.includeWordProblems && (
-                        <div className="modal-section">
-                            <h3>✏️ Practice Sheet Settings</h3>
-                            <div className="modal-input-group">
-                                <label htmlFor="modal-wordAnswerArea">Word Problem Answer Space</label>
-                                <select
-                                    id="modal-wordAnswerArea"
-                                    value={tempConfig.wordAnswerArea}
-                                    onChange={(e) => handleTempChange('wordAnswerArea', e.target.value)}
-                                >
-                                    <option value="lines">Ruled lines</option>
-                                    <option value="box">Answer box</option>
-                                </select>
-                                <span className="modal-input-hint">
-                                    Where students write the answer to each word problem.
                                 </span>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-import { practiceColumns, practiceCellHeightMm, OPERATOR_SYMBOL } from '../utils/worksheetLayout';
+import { practiceGroups, OPERATOR_SYMBOL } from '../utils/worksheetLayout';
 
 function StackedProblem({ problem }) {
     const [a, b] = problem.operands;
@@ -24,8 +24,7 @@ function StackedProblem({ problem }) {
 }
 
 export default function PracticeSheetPage({ config, math, words, wordsHeading }) {
-    const columns = practiceColumns(math);
-    const cellHeight = practiceCellHeightMm(math);
+    const groups = practiceGroups(math);
 
     return (
         <div className="worksheet-page questions-page practice-page">
@@ -49,20 +48,23 @@ export default function PracticeSheetPage({ config, math, words, wordsHeading })
                 {math.length > 0 && (
                     <>
                         {words.length > 0 && <h3 className="section-title">Section A: Number Problems</h3>}
-                        <div
-                            className="practice-grid"
-                            style={{
-                                gridTemplateColumns: `repeat(${columns}, 1fr)`,
-                                gridAutoRows: `${cellHeight}mm`,
-                            }}
-                        >
-                            {math.map((p) => (
-                                <div key={p.number} className="practice-cell">
-                                    <span className="practice-cell-number">{p.number}.</span>
-                                    <StackedProblem problem={p} />
-                                </div>
-                            ))}
-                        </div>
+                        {groups.map((g, gi) => (
+                            <div
+                                key={gi}
+                                className="practice-grid"
+                                style={{
+                                    gridTemplateColumns: `repeat(${g.columns}, 1fr)`,
+                                    gridAutoRows: `${g.cellHeightMm}mm`,
+                                }}
+                            >
+                                {g.items.map((p) => (
+                                    <div key={p.number} className="practice-cell">
+                                        <span className="practice-cell-number">{p.number}.</span>
+                                        <StackedProblem problem={p} />
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
                     </>
                 )}
 
@@ -72,18 +74,14 @@ export default function PracticeSheetPage({ config, math, words, wordsHeading })
                         <div className="practice-words">
                             {words.map((p) => (
                                 <div key={p.number} className="practice-word">
-                                    <div className="problem-item">
-                                        <span className="problem-number">{p.number}.</span>
-                                        <p className="word-problem">{p.question}</p>
-                                    </div>
-                                    {config.wordAnswerArea === 'box' ? (
-                                        <div className="word-answer-box"><span>Answer:</span></div>
-                                    ) : (
-                                        <div className="word-answer-lines">
-                                            <span className="word-answer-line"></span>
-                                            <span className="word-answer-line"></span>
+                                    <div className="practice-word-main">
+                                        <div className="problem-item">
+                                            <span className="problem-number">{p.number}.</span>
+                                            <p className="word-problem">{p.question}</p>
                                         </div>
-                                    )}
+                                        <div className="word-answer-box"><span>Answer:</span></div>
+                                    </div>
+                                    <div className="working-area-box"><span>Working Area</span></div>
                                 </div>
                             ))}
                         </div>

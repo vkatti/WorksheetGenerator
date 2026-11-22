@@ -25,8 +25,6 @@ function App() {
     worksheetTitle: 'Worksheet',
     includeAnswerKey: true,
     worksheetStyle: STYLE_PRACTICE, // 'practice' | 'paper'
-    // Practice Sheet options
-    wordAnswerArea: 'lines', // 'lines' | 'box'
     // Question Paper options
     marksNumber: 1,
     marksWord: 2,

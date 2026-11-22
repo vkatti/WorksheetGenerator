@@ -19,7 +19,7 @@ A React-based web application that generates customizable, printable math worksh
 ### 1. Configure Your Worksheet
 
 **Worksheet Style:**
-- **Practice Sheet** - a boxed grid of vertically stacked problems (long-division bracket for division) with room for the answer right on the sheet. Cells and columns adapt to the digit count. Word problems get ruled lines or an answer box.
+- **Practice Sheet** - a boxed grid of vertically stacked problems (long-division bracket for division) with room for the answer right on the sheet. Cells and columns adapt to the digit count. Addition and subtraction come first; multiplication and division follow in taller cells (more room for working). Word problems are a two-column section: ~75% problem with an answer box, ~25% blank "Working Area".
 - **Question Paper** - exam-style paper with Name/Class/Date, time allowed, total marks, general instructions, marks per question (set per section) and optional blank working-sheet pages (ruled or square grid) for students to show their working.
 
 **Select Problem Types:**
@@ -55,7 +55,6 @@ Click the **⚙️ Advanced Settings** button to access additional options:
 
 Click **Apply** to save your advanced settings.
 
-- **Practice Sheet options**: word-problem answer space (ruled lines or answer box)
 - **Question Paper options**: marks per Section A / Section B question, time allowed, general instructions, working sheet type (ruled, grid or none)
 
 ### 3. Generate Worksheet

@@ -105,37 +105,50 @@
     padding: 2px 8px 0 8px;
 }
 
-/* Word problems in the Practice Sheet */
+/* Word problems in the Practice Sheet: 75% problem + answer box, 25% working area */
 .practice-words {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
 }
 
 .practice-word {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 10px;
     page-break-inside: avoid;
 }
 
-.word-answer-lines {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    margin: 14px 0 0 36px;
+.practice-word-main .word-problem {
+    max-width: none;
+    font-size: 16px;
+    line-height: 1.45;
 }
 
-.word-answer-line {
-    display: block;
-    border-bottom: 1px solid #999;
-    height: 1px;
+.working-area-box {
+    min-height: 34mm;
+    border: 1.5px solid #333;
+    border-radius: 6px;
+    padding: 3px 6px;
+    box-sizing: border-box;
+}
+
+.working-area-box span {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: #888;
 }
 
 .word-answer-box {
-    margin: 8px 0 0 36px;
-    height: 12mm;
-    width: 70mm;
+    margin: 6px 0 0 36px;
+    height: 10mm;
+    width: 60mm;
+    max-width: calc(100% - 36px);
     border: 2px solid #333;
     border-radius: 6px;
-    padding: 4px 8px;
+    padding: 3px 8px;
     box-sizing: border-box;
     font-size: 12px;
     color: #666;
