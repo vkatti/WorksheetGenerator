@@ -144,6 +144,8 @@
 }
 
 .modal-input-group input[type="number"],
+.modal-input-group input[type="text"],
+.modal-input-group textarea,
 .modal-input-group select {
     width: 100%;
     padding: 10px;
@@ -158,9 +160,15 @@
 }
 
 .modal-input-group input[type="number"]:focus,
+.modal-input-group input[type="text"]:focus,
+.modal-input-group textarea:focus,
 .modal-input-group select:focus {
     outline: none;
     border-color: var(--color-primary);
+}
+
+.modal-input-group textarea {
+    resize: vertical;
 }
 
 .modal-input-hint {
@@ -249,6 +257,8 @@
     }
 
     .modal-input-group input[type="number"],
+.modal-input-group input[type="text"],
+.modal-input-group textarea,
     .modal-input-group select {
         background: #1a1a1a;
         border-color: #404040;
@@ -256,6 +266,8 @@
     }
 
     .modal-input-group input[type="number"]:focus,
+.modal-input-group input[type="text"]:focus,
+.modal-input-group textarea:focus,
     .modal-input-group select:focus {
         border-color: var(--color-primary);
     }

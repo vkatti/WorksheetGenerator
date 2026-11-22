@@ -3,6 +3,7 @@ import './WorksheetConfig.css';
 import AdvancedSettingsModal from './AdvancedSettingsModal';
 import Tooltip from './Tooltip';
 import InfoIcon from './InfoIcon';
+import { STYLE_PRACTICE, STYLE_PAPER } from '../utils/worksheetLayout';
 
 export default function WorksheetConfig({ config, onConfigChange, onGenerate, onLegalLinkClick }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,6 +37,37 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate, on
     return (
         <div className="worksheet-config">
             <h2>Worksheet Configuration</h2>
+
+            {/* Worksheet Style */}
+            <div className="config-section">
+                <label>
+                    Worksheet Style
+                    <Tooltip position="right" text="Practice Sheet: students write answers on the sheet itself (stacked sums in boxes). Question Paper: exam-style questions with marks; students work on a separate sheet.">
+                        <span className="help-icon" tabIndex={0} aria-label="Help: worksheet style"><InfoIcon /></span>
+                    </Tooltip>
+                </label>
+                <div className="style-toggle" role="radiogroup" aria-label="Worksheet style">
+                    {[
+                        { value: STYLE_PRACTICE, label: 'Practice Sheet', hint: 'Write answers here' },
+                        { value: STYLE_PAPER, label: 'Question Paper', hint: 'Work on separate sheet' }
+                    ].map(opt => (
+                        <label
+                            key={opt.value}
+                            className={`style-option${config.worksheetStyle === opt.value ? ' is-selected' : ''}`}
+                        >
+                            <input
+                                type="radio"
+                                name="worksheetStyle"
+                                value={opt.value}
+                                checked={config.worksheetStyle === opt.value}
+                                onChange={() => handleChange('worksheetStyle', opt.value)}
+                            />
+                            <span className="style-option-label">{opt.label}</span>
+                            <span className="style-option-hint">{opt.hint}</span>
+                        </label>
+                    ))}
+                </div>
+            </div>
 
             {/* Problem Types */}
             <div className="config-section">
@@ -137,7 +169,7 @@ export default function WorksheetConfig({ config, onConfigChange, onGenerate, on
             </div>
 
             {/* Advanced Settings Button */}
-            <Tooltip className="tooltip-block" text="Fine-tune digit counts per operation, word-problem count, and currency symbol.">
+            <Tooltip className="tooltip-block" text="Fine-tune digit counts per operation, word-problem count, currency, and style-specific options.">
                 <button
                     className="advanced-settings-btn"
                     onClick={() => setIsModalOpen(true)}

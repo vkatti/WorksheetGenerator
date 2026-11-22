@@ -15,6 +15,7 @@ export function generateAddition(config) {
     const b = randomWithDigits(addendDigits);
     return {
         type: 'addition',
+        operands: [a, b],
         question: `${a} + ${b} = ____`,
         answer: a + b
     };
@@ -31,6 +32,7 @@ export function generateSubtraction(config) {
 
     return {
         type: 'subtraction',
+        operands: [a, b],
         question: `${a} - ${b} = ____`,
         answer: a - b
     };
@@ -43,6 +45,7 @@ export function generateMultiplication(config) {
     const b = randomWithDigits(multiplierDigits);
     return {
         type: 'multiplication',
+        operands: [a, b],
         question: `${a} × ${b} = ____`,
         answer: a * b
     };
@@ -57,6 +60,7 @@ export function generateDivision(config) {
 
     return {
         type: 'division',
+        operands: [dividend, divisor],
         question: `${dividend} ÷ ${divisor} = ____`,
         answer: quotient
     };

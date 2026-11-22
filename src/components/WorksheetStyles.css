@@ -1,0 +1,288 @@
+/* Styles for the two worksheet styles (Practice Sheet / Question Paper) */
+
+/* ---------- Practice Sheet ---------- */
+.practice-page {
+    padding: 8mm;
+}
+
+.practice-frame {
+    flex: 1;
+    border: 3px solid #333;
+    border-radius: 14px;
+    padding: 6mm 7mm 7mm;
+    display: flex;
+    flex-direction: column;
+}
+
+.practice-title {
+    margin: 0 0 6px 0;
+    text-align: center;
+    font-size: 38px;
+    font-weight: 700;
+    color: #222;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Trebuchet MS', sans-serif;
+}
+
+.practice-meta {
+    padding-bottom: 8px;
+    border-bottom: 3px solid #333;
+    margin-bottom: 0;
+}
+
+.practice-frame .section-title {
+    margin: 10px 0 0;
+}
+
+.practice-grid {
+    display: grid;
+    border-left: 1.5px solid #333;
+    border-top: 1.5px solid #333;
+}
+
+.practice-cell {
+    position: relative;
+    border-right: 1.5px solid #333;
+    border-bottom: 1.5px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 6px;
+    box-sizing: border-box;
+}
+
+.practice-cell-number {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #666;
+}
+
+/* Stacked add / subtract / multiply */
+.stacked {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: stretch;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.15;
+    color: #222;
+    margin-top: -6px;
+}
+
+.stacked-top {
+    text-align: right;
+}
+
+.stacked-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5em;
+    border-bottom: 3px solid #222;
+    padding-bottom: 2px;
+}
+
+/* Long division bracket */
+.long-division {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 6px;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Trebuchet MS', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: #222;
+    margin-top: 8mm;
+}
+
+.long-division-dividend {
+    border-top: 3px solid #222;
+    border-left: 3px solid #222;
+    border-top-left-radius: 8px;
+    padding: 2px 8px 0 8px;
+}
+
+/* Word problems in the Practice Sheet */
+.practice-words {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.practice-word {
+    page-break-inside: avoid;
+}
+
+.word-answer-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin: 14px 0 0 36px;
+}
+
+.word-answer-line {
+    display: block;
+    border-bottom: 1px solid #999;
+    height: 1px;
+}
+
+.word-answer-box {
+    margin: 8px 0 0 36px;
+    height: 12mm;
+    width: 70mm;
+    border: 2px solid #333;
+    border-radius: 6px;
+    padding: 4px 8px;
+    box-sizing: border-box;
+    font-size: 12px;
+    color: #666;
+}
+
+/* ---------- Question Paper ---------- */
+.paper-header h1 {
+    text-align: center;
+    font-size: 28px;
+}
+
+.paper-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.paper-instructions {
+    margin: 0 0 12px;
+    padding: 8px 12px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    color: #333;
+}
+
+.paper-instructions h4 {
+    margin: 0 0 4px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.paper-instructions ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.paper-section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.paper-section-marks {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
+
+.paper-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 28px;
+    row-gap: 16px;
+}
+
+.paper-words {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.paper-question {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 4px;
+    align-items: baseline;
+    page-break-inside: avoid;
+}
+
+.paper-q-number {
+    font-weight: 700;
+    color: #333;
+    font-size: 16px;
+}
+
+.paper-q-text {
+    font-size: 20px;
+    font-weight: 500;
+    color: #333;
+}
+
+.paper-q-word {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.paper-q-marks {
+    font-size: 13px;
+    color: #555;
+    white-space: nowrap;
+    padding-left: 8px;
+}
+
+/* Working sheet pages */
+.working-header {
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+}
+
+.working-header h2 {
+    margin: 0 0 8px;
+    font-size: 22px;
+    color: #333;
+}
+
+.working-area {
+    flex: 1;
+    min-height: 200mm;
+}
+
+.working-area.is-ruled {
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent calc(9mm - 1px),
+        #b5b5b5 calc(9mm - 1px),
+        #b5b5b5 9mm
+    );
+}
+
+.working-area.is-grid {
+    background-image:
+        linear-gradient(to right, #cfcfcf 1px, transparent 1px),
+        linear-gradient(to bottom, #cfcfcf 1px, transparent 1px);
+    background-size: 5mm 5mm;
+}
+
+@media (max-width: 768px) {
+    .practice-page {
+        padding: 6mm;
+    }
+
+    .stacked {
+        font-size: 22px;
+    }
+
+    .long-division {
+        font-size: 20px;
+    }
+
+    .paper-grid {
+        grid-template-columns: 1fr;
+    }
+}
